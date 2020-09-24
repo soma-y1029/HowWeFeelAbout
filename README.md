@@ -1,2 +1,2 @@
 # HowWeFeelAbout
- Twetter Sentiment Analysis with Queries
+ Twitter Sentiment Analysis with Queries
