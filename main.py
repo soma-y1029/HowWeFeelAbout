@@ -17,10 +17,10 @@ class Tweets():
         self.__get_tweets()
 
     def __set_api(self):
-        consumer_key = "Fq5HwW4AodlRIJVKtUHZPbWDG"
-        consumer_secret = "NsaAx8mZOpR1vCB4iMjgvPjxbaJWEbs89G8mY9ZsTUwJgsjVNL"
-        access_token = "1306672127114842113-zzy7w30nwaUTAxEwn5iBxhsWD3QNyA"
-        access_token_secret = "NWLl0Bc9FnNnczoQFecHzDrW2iaD84ZUmKylxHrufayAC"
+        consumer_key = ''
+        consumer_secret = ''
+        access_token = ''
+        access_token_secret = ''
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         self.__api = tweepy.API(auth, wait_on_rate_limit=True)
