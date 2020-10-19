@@ -1,16 +1,57 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import tweepy, time
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Tweets():
+    def __init__(self, text_query):
+        self.__text_query = text_query
+        self.__count = 100
+        self.__api = None
+        self.tweets_list = []
+        self.__run()
+
+    def get_tweets_list(self):
+        return self.tweets_list
+
+    def __run(self):
+        self.__set_api()
+        self.__get_tweets()
+
+    def __set_api(self):
+        consumer_key = "Fq5HwW4AodlRIJVKtUHZPbWDG"
+        consumer_secret = "NsaAx8mZOpR1vCB4iMjgvPjxbaJWEbs89G8mY9ZsTUwJgsjVNL"
+        access_token = "1306672127114842113-zzy7w30nwaUTAxEwn5iBxhsWD3QNyA"
+        access_token_secret = "NWLl0Bc9FnNnczoQFecHzDrW2iaD84ZUmKylxHrufayAC"
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
+        self.__api = tweepy.API(auth, wait_on_rate_limit=True)
+
+    def __get_tweets(self):
+        try:
+            # create query from tweet api search.
+            # limits to english, self.__count number of tweet
+            quries = tweepy.Cursor(self.__api.search, q=self.__text_query, lang='en',
+                                   tweet_mode='extended', result_type='recent').items(self.__count)
+
+            for tweet_status in quries:
+                self.__get_full_text(tweet_status)
+
+        except BaseException as e: # error getting tweets
+            print('failed __get_tweets,', str(e))
+            time.sleep(3)
+
+    def __get_full_text(self, status):
+        if hasattr(status, "retweeted_status"):  # Check if Retweet
+            if hasattr(status, "retweeted_status"):  # Check if Retweet
+                self.tweets_list.append(f'{status.retweeted_status.full_text}')
+            else:
+                self.tweets_list.append(f'{status.full_text}')
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    while True:
+        text_query = input('Keywords: ')
+        if text_query == 'end':
+            break
+        tweets = Tweets(text_query)
+        for c, tweet_text in enumerate(tweets.get_tweets_list()):
+            print(f'Tweet {c}: {tweet_text}\n')
