@@ -1,5 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Raleway&display=swap');
+
+:root {
+  --main-font-color: #1a1a1a;
+  --main-bg-color: white;
+  --main-theme-color: rgb(243, 168, 47);
+  --light-white: #f5f5f5;
+  --light-grey: #ccc;
+  --light-black: #282a39;
+  --font-body-stack: 'Raleway', sans-serif;
+  --font-heading-stack: 'PT Serif', Serif;
+  --container--width: 786px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+.conatainer {
+  max-width: var(--container--width);
+  margin: 0 auto;
+}
+
+.header {
+  padding: 2rem 1.4rem;
+  text-align: center;
+}
+
+.header__title {
+  text-align: center;
+  padding: 2rem 1.4rem;
+  padding-bottom: 0;
+  font-family: var(--font-heading-stack);
+  letter-spacing: 1.5px;
+  
+}
+
+.header__explanation {
+  text-align: center;
+  font-family: var(--font-body-stack);
+}
+
+.keywords__container {
+  text-align: center;
+  padding: 2rem 1.4rem;
+}
+
+.progress {
+  width: 50%;
+  background-color: var(--light-white);
+  margin: 2rem auto;
+}
+
+.progress__inner {
+  height: 10px;
+  width: 50%;
+  background-color: var(--main-theme-color);
+}
+
