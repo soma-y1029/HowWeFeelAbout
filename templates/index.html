@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How We Feel About</title>
+  <meta name="description" content="Sentiment Analyzer Web App">
+  <meta name="author" content="Soma, Solbi">
+  <!-- <link rel="icon" type="image/png" href=""> -->
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- bar in the header -->
+  <header id="bar">
+    <div class="bar__logo">
+      How We Feel About
+    </div>
+    <div class="bar__explanation">
+      Sentimental Anaylzer Web App
+    </div>
+
+  </header>
+
+  <body class="container">
+    <!-- Recieve input from the user and post the form -->
+    <section id="keywords">
+      <form action="/addTodo/" method="post" class="keywords__form">
+        <span class="keywords__ask">Enter a keyword</span>
+        <input type="text" name="content" class="keywords__text">
+        <input type="submit" value="Add" class="keywords__button">
+      </form> 
+    </section>
+
+    <section id="result">
+
+
+    </section>
+  </body>
+</body>
+</html>
+
+
+<!-- <h1>this is teh todo page.</h1>
+
+
+<ul> -->
+  <!-- getting the objects like this  -->
+  <!-- {% for todo_item in all_items %}  
+  <li>{{todo__item.content}}
+
+    <form action="/deleteTodo/{{todo_item.id}}" 
+          style="display: inline;"
+          method="post">{% csrf_token %}
+      <input type="submit" value="Delete" />
+    </form>
+
+  </li>
+  {% endfor %}
+</ul>
+
+
+<form action="/addTodo/" method="post">{% csrf_token %}
+  <input type="text" name="content">
+  <input type="submit" value="Add" />
+</form> -->
