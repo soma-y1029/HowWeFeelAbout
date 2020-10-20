@@ -34,7 +34,7 @@
   padding-bottom: 0;
   font-family: var(--font-heading-stack);
   letter-spacing: 1.5px;
-  
+
 }
 
 .header__explanation {
@@ -48,14 +48,30 @@
 }
 
 .progress {
-  width: 50%;
+  width: 70%;
   background-color: var(--light-white);
   margin: 2rem auto;
+  margin-bottom: 0.5rem;
 }
 
 .progress__inner {
-  height: 10px;
-  width: 50%;
+  height: 50px;
+  width: 40%;
   background-color: var(--main-theme-color);
 }
 
+.result__emoji {
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  margin: auto;
+  font-size: 3rem;
+}
+
+.result__happy {
+  color: green;
+}
+
+.result__angry {
+  color: lightcoral;
+}
