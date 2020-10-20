@@ -23,6 +23,7 @@
   margin: 0 auto;
 }
 
+/* header */
 .header {
   padding: 2rem 1.4rem;
   text-align: center;
@@ -42,9 +43,24 @@
   font-family: var(--font-body-stack);
 }
 
+/* Keywords */
 .keywords__container {
   text-align: center;
   padding: 2rem 1.4rem;
+  
+
+}
+
+.keywords__text {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+}
+.keywords__button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  /* transition: 0.3s all ease; */
+  font-weight: bold;
 }
 
 .progress {
