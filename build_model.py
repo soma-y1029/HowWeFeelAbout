@@ -1,4 +1,3 @@
-from spacy.tokenizer import Tokenizer
 from spacy.lang.en import English, stop_words
 from nltk.corpus import twitter_samples
 import nltk, re
@@ -6,16 +5,26 @@ import nltk, re
 
 class Model():
     def __init__(self):
-        self.model_nlp = English()
+        self.__model_nlp = English()
+
+        self.__tokenizer = self.__model_nlp.Defaults.create_tokenizer(self.__model_nlp)
         self.__get_labeled_tweets('positive_tweets.json')
 
     def __get_labeled_tweets(self, file_name):
-        raw_tweets = [' '.join(tokens) for tokens in twitter_samples.tokenized(file_name)]
-        tokenized_tweets = []
-        for tweet in raw_tweets:
-            tokenized_tweets.append(self.model_nlp(tweet))
+        raw_tweets = [' '.join(tokens) for tokens in twitter_samples.tokenized(file_name)[:10]]
+        tokenized_tweets,tokens_lists = [], []
 
-        for tokens in tokenized_tweets:
+        # obtain tokenizer object for each tweets from raw_tweets
+        for tweet in raw_tweets:
+            tokenized_tweets.append(self.__tokenizer(tweet))
+
+        # extract only tokenized string and make list of strings
+        # store list of strings to tokens_lists
+        for tweet in tokenized_tweets:
+            tokens_lists.append([token.text for token in tweet])
+
+        # for each tokenized tweet, perform operations
+        for tokens in tokens_lists:
             self.__remove_surplus(tokens)
             self.__lemmatize(tokens)
             self.__remove_stop_words(tokens)
