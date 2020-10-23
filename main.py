@@ -1,5 +1,6 @@
 import tweepy, time
 
+from build_model import Model
 
 class Tweets():
     def __init__(self, text_query):
@@ -48,10 +49,17 @@ class Tweets():
 
 
 if __name__ == '__main__':
-    while True:
-        text_query = input('Keywords: ')
-        if text_query == 'end':
-            break
-        tweets = Tweets(text_query)
-        for c, tweet_text in enumerate(tweets.get_tweets_list()):
-            print(f'Tweet {c}: {tweet_text}\n')
+    # while True:
+    #     text_query = input('Keywords: ')
+    #     if text_query == 'end':
+    #         break
+    #     tweets = Tweets(text_query)
+    #     for c, tweet_text in enumerate(tweets.get_tweets_list()):
+    #         print(f'Tweet {c}: {tweet_text}\n')
+    text_query = input('Keywords: ')
+    tweets = Tweets(text_query)
+    for c, tweet_text in enumerate(tweets.get_tweets_list()):
+        print(f'Tweet {c}: {tweet_text}\n')
+
+    # model based on sample labeled tweets
+    nlp_model = Model()
