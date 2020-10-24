@@ -61,6 +61,11 @@ class Model():
         if re.match(link_pattern, token.text):
             return True
 
+        # remove token consists of only nums
+        nums_only_pattern = r'^[0-9]+$'
+        if re.match(nums_only_pattern, token.text):
+            return True
+
         if token.text in string.punctuation:
             return True
 
