@@ -8,49 +8,49 @@ class Model():
         self.__model_nlp = English()
 
         self.__tokenizer = self.__model_nlp.Defaults.create_tokenizer(self.__model_nlp)
-        self.__get_labeled_tweets('positive_tweets.json')
+        res = self.__get_labeled_tweets('positive_tweets.json')
+        print(res)
 
     def __get_labeled_tweets(self, file_name):
         raw_tweets = [' '.join(tokens) for tokens in twitter_samples.tokenized(file_name)[:10]]
-        tokenized_tweets,tokens_lists = [], []
+        tokenized_tweets = []
 
         # obtain tokenizer object for each tweets from raw_tweets
         for tweet in raw_tweets:
-            tokenized_tweets.append(self.__tokenizer(tweet))
+            # tokenized_tweets.append(self.__tokenizer(tweet))
+            tokenized_tweets.append(self.__model_nlp(tweet))
 
-        # extract only tokenized string and make list of strings
-        # store list of strings to tokens_lists
-        for tweet in tokenized_tweets:
-            tokens_lists.append([token.text for token in tweet])
-
+        cleaned_list = []
         # for each tokenized tweet, perform operations
-        for tokens in tokens_lists:
-            self.__remove_surplus(tokens)
-            self.__lemmatize(tokens)
-            self.__remove_stop_words(tokens)
+        for tweet in tokenized_tweets:
+            cleaned_tweet_tokens = []
+            for token in tweet:
+                if self.__is_surplus(token):
+                    continue
+                if not token.is_stop:
+                    cleaned_tweet_tokens.append(token.lemma_.lower())
+            cleaned_list.append(cleaned_tweet_tokens)
 
-    def __remove_surplus(self, tokens):
+        return cleaned_list
+
+    def __is_surplus(self, token):
         '''
-        remove surplus tokens from given tokens
-        :param tokens: list of token
+        check if given token is surplus or not
+        :param token: Doc object from tokenizer
+        :return: True if this token is surplus
         '''
-        for token in tokens[:]:
-            # remove mention @ from tokens
-            mention_pattern = r'@\w+'
-            if re.match(mention_pattern, token):
-                tokens.remove(token)
+        # remove mention @ from tokens
+        mention_pattern = r'(@\w+)|(#)'
+        if re.match(mention_pattern, token.text):
+            return True
 
-            # remove link http... from tokens
-            link_pattern = r'http[s]?://[\w|.|/]+'
-            if re.match(link_pattern, token):
-                tokens.remove(token)
+        # remove link http... from tokens
+        link_pattern = r'http[s]?://[\w|.|/]+'
+        if re.match(link_pattern, token.text):
+            return True
 
-    def __lemmatize(self, tokens):
-        pass
+        return False
 
-    def __remove_stop_words(self, tokens):
-
-        pass
 
 
 
