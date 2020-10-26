@@ -1,5 +1,8 @@
 //cache elements
 const progressBarEl = document.querySelector('.progress__inner');
+const resultEl = document.querySelector('#result');
+const inputEl = document.querySelector('.keywords__text');
+
 
 const lanuch = (start, end) => {
   let statusBar = setInterval(() => {
@@ -14,4 +17,14 @@ const lanuch = (start, end) => {
 
 const status = 55;
 
+// inputEl.value 
+// resultEl.value = 3;
+
+// setInterval(() => {
+//   if(inputEl.value) {
+//     console.log(inputEl.value);
+//   }
+// }, 50);
+
+console.log(document.getElementById("myVar").value);
 lanuch(0, status);

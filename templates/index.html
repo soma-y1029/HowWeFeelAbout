@@ -27,21 +27,19 @@
 
     </header>
     <!-- Recieve input from the user and post the form -->
-    <section id="keywords">
+    <div class="keywords">
       <div class="keywords__container">
         <!-- <span class="keywords__ask">Enter a keyword</span> -->
         <form action="/passKeyword/" method="post" class="keywords__form">
-       
-        <input type="text" name="content" class="keywords__text">
+        <input type="text" name="content" placeholder="enter your feeling" class="keywords__text">
         <input type="submit" value="Result" class="keywords__button">
       </form>
       </div>
 
-    </section>
+    </div>
 
-    <section id="result">
+    <div class="result">
       <div class="result__container">
-    
         <div class="progress">
           <div class="progress__inner">
           </div>
@@ -50,8 +48,12 @@
           <i class="far fa-angry result__angry"></i>
           <i class="far fa-smile result__happy"></i>
         </div>
+        <div class="result__value">
+          <h1 id="result">Test result: {{result}}</h1>
+          <input type="hidden" id="myVar" name="variable" value="{{result}}">
+        </div>
       </div>
-    </section>
+    </div>
   </div>
 
 </body>
