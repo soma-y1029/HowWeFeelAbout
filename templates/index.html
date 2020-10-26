@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +9,9 @@
   <meta name="description" content="Sentiment Analyzer Web App">
   <meta name="author" content="Soma, Solbi">
   <!-- <link rel="icon" type="image/png" href=""> -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script src="https://kit.fontawesome.com/4277093d13.js" crossorigin="anonymous"></script>
-
-  <script src="app.js" defer></script>
+  <script src="{% static 'js/app.js' %}" defer></script>
 </head>
 
 <body>
@@ -30,8 +30,8 @@
     <div class="keywords">
       <div class="keywords__container">
         <!-- <span class="keywords__ask">Enter a keyword</span> -->
-        <form action="/passKeyword/" method="post" class="keywords__form">
-        <input type="text" name="content" placeholder="enter your feeling" class="keywords__text">
+      <form action="/passKeyword/" method="post" class="keywords__form">{% csrf_token %}
+        <input type="text" name="keyword" placeholder="enter your feeling" class="keywords__text">
         <input type="submit" value="Result" class="keywords__button">
       </form>
       </div>
@@ -49,7 +49,9 @@
           <i class="far fa-smile result__happy"></i>
         </div>
         <div class="result__value">
-          <h1 id="result">Test result: {{result}}</h1>
+          <!-- <h1 id="result">Test result: {{first_item.content}}</h1> -->
+          <h1 id="content">Test result: {{first_item.content}}</h1>
+          <h1 id="result">Test result: {{first_item.result}}</h1>
           <input type="hidden" id="myVar" name="variable" value="{{result}}">
         </div>
       </div>

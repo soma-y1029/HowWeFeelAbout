@@ -26,5 +26,6 @@ const status = 55;
 //   }
 // }, 50);
 
-console.log(document.getElementById("myVar").value);
+// console.log(document.getElementById("myVar").value);
+console.log('hi');
 lanuch(0, status);
