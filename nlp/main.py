@@ -2,7 +2,7 @@ from nlp.sentiment_analysis import Model, Algorithm
 from nlp.twitter import Tweets
 
 
-def run_sentimet_analyzer(query):
+def run_sentiment_analyzer(query):
     rebuild = False
     sample_size_for_model = 500
     size_of_actual_tweets = 50
@@ -29,4 +29,4 @@ def run_sentimet_analyzer(query):
     return res_dict
 
 
-run_sentimet_analyzer('vote')
+# run_sentiment_analyzer('vote')

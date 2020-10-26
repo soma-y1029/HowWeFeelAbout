@@ -7,7 +7,7 @@ import string
 from nltk.corpus import twitter_samples
 
 # sklearn library to build model and classify the tweets
-from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer, CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
