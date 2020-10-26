@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,36 +9,55 @@
   <meta name="author" content="Soma, Solbi">
   <!-- <link rel="icon" type="image/png" href=""> -->
   <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/4277093d13.js" crossorigin="anonymous"></script>
+
   <script src="app.js" defer></script>
 </head>
+
 <body>
-  <!-- bar in the header -->
-  <header id="bar">
-    <div class="bar__logo">
-      How We Feel About
-    </div>
-    <div class="bar__explanation">
-      Sentimental Anaylzer Web App
-    </div>
+  <div class="conatainer">
+    <!-- bar in the header -->
+    <header id="header">
+      <h1 class="header__title">
+        How We Feel About
+      </h1>
+      <h3 class="header__explanation">
+        Sentimental Anaylzer Web App
+      </h3>
 
-  </header>
-
-  <body class="container">
+    </header>
     <!-- Recieve input from the user and post the form -->
-    <section id="keywords">
-      <form action="/addTodo/" method="post" class="keywords__form">
-        <span class="keywords__ask">Enter a keyword</span>
-        <input type="text" name="content" class="keywords__text">
-        <input type="submit" value="Add" class="keywords__button">
-      </form> 
-    </section>
+    <div class="keywords">
+      <div class="keywords__container">
+        <!-- <span class="keywords__ask">Enter a keyword</span> -->
+        <form action="/passKeyword/" method="post" class="keywords__form">
+        <input type="text" name="content" placeholder="enter your feeling" class="keywords__text">
+        <input type="submit" value="Result" class="keywords__button">
+      </form>
+      </div>
 
-    <section id="result">
+    </div>
 
+    <div class="result">
+      <div class="result__container">
+        <div class="progress">
+          <div class="progress__inner">
+          </div>
+        </div>
+        <div class="result__emoji">
+          <i class="far fa-angry result__angry"></i>
+          <i class="far fa-smile result__happy"></i>
+        </div>
+        <div class="result__value">
+          <h1 id="result">Test result: {{result}}</h1>
+          <input type="hidden" id="myVar" name="variable" value="{{result}}">
+        </div>
+      </div>
+    </div>
+  </div>
 
-    </section>
-  </body>
 </body>
+
 </html>
 
 
@@ -45,8 +65,8 @@
 
 
 <ul> -->
-  <!-- getting the objects like this  -->
-  <!-- {% for todo_item in all_items %}  
+<!-- getting the objects like this  -->
+<!-- {% for todo_item in all_items %}  
   <li>{{todo__item.content}}
 
     <form action="/deleteTodo/{{todo_item.id}}" 
