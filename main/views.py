@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import mainItem
+from nlp.main import run_sentiment_analyzer
 # Create your views here.
 
 
@@ -18,13 +19,14 @@ def passKeyword(request):
     keyword = request.POST['keyword']        #this is the input keyword passed from templates
     
     #run a method that gets us the sentimental result(0-100)
-    result_percent = 100                     #add your result here
+    res_dict = run_sentiment_analyzer(keyword)
+    result_percent = res_dict['Positiveness']                   #add your result here
     first_item.result = result_percent
     first_item.content = keyword
     # new_item = mainItem(content = keyword)
     first_item.save()
 
     #Render Progress bar
-    # result = 87
+    #result = 87
     
     return HttpResponseRedirect('/main/')
