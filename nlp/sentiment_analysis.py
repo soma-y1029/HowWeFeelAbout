@@ -57,7 +57,6 @@ class Model:
         with open('text_classifier', 'wb') as picklefile:
             pickle.dump(self.text_classifier, picklefile)
 
-
 class Algorithm:
     def __init__(self):
         self.__model_nlp = spacy.load(SPACY_DIR)
