@@ -16,7 +16,7 @@ SPACY_DIR = 'en'
 
 
 class Model:
-    def __init__(self, algorithm, rebuild=False, sample_size=1000):
+    def __init__(self, algorithm, rebuild=False, sample_size=5000):
         """
         Constructor
         """
@@ -37,11 +37,10 @@ class Model:
         if self.__rebuild:  # build model from nltk sample tweets
             print('building model')
             self.__build_model()
+            self.__save_to_file()
 
         else:  # load from file
-            print('loading model')
-            with open('text_classifier', 'rb') as training_model:
-                self.__text_classifier = pickle.load(training_model)
+            self.__load_file()
 
     def __build_model(self):
         tweet_samples = self.__get_labeled_tweets() # list of cleaned string tweets
@@ -54,7 +53,6 @@ class Model:
         docs_train_counts = self.algorithm.tweetVzer.fit_transform(docs_train)
         # Convert raw frequency counts into TF-IDF values
         docs_train_tfidf = self.algorithm.tweetTfmer.fit_transform(docs_train_counts)
-
 
         # testing data
         # Using the fitted vectorizer and transformer, tranform the test data
@@ -73,9 +71,28 @@ class Model:
         y_pred = self.text_classifier.predict(docs_test_tfidf)
         print(f'the accuracy for this model testing: {accuracy_score(y_test, y_pred)}')
 
-        print('writing model')
-        with open('text_classifier', 'wb') as picklefile:
-            pickle.dump(self.text_classifier, picklefile)
+    def __save_to_file(self):
+        print('writing data to files')
+        with open('text_classifier', 'wb') as file:
+            pickle.dump(self.text_classifier, file)
+
+        with open('tweetVzer', 'wb') as file:
+            pickle.dump(self.algorithm.tweetVzer, file)
+
+        with open('tweetTfmer', 'wb') as file:
+            pickle.dump(self.algorithm.tweetTfmer, file)
+
+    def __load_file(self):
+        print('loading data from file')
+
+        with open('text_classifier', 'rb') as file:
+            self.__text_classifier = pickle.load(file)
+
+        with open('tweetVzer', 'rb') as file:
+            self.algorithm.tweetVzer = pickle.load(file)
+
+        with open('tweetTfmer', 'rb') as file:
+            self.algorithm.tweetTfmer = pickle.load(file)
 
     def __get_labeled_tweets(self):
         """
@@ -83,14 +100,11 @@ class Model:
         :param file_name: name of file in string
         :return: cleaned list of lists that contain tokens for each tweets
         """
-        pos_sample = twitter_samples.tokenized('positive_tweets.json')[:self.__sample_size]
-        raw_tweets = [' '.join(tokens) for tokens in pos_sample]
+        pos_samples = twitter_samples.strings('positive_tweets.json')[:self.__sample_size]
+        neg_samples = twitter_samples.strings('negative_tweets.json')[:self.__sample_size]
+        # print(pos_samples+neg_samples) # show raw tweets sample form nltk
 
-        neg_sample = twitter_samples.tokenized('negative_tweets.json')[:self.__sample_size]
-        raw_tweets += [' '.join(tokens) for tokens in neg_sample]
-        # print(raw_tweets) # show raw tweets sample form nltk
-
-        return self.algorithm.process_tweets(raw_tweets)
+        return self.algorithm.process_tweets(pos_samples+neg_samples)
 
 
 class Algorithm:
@@ -102,14 +116,6 @@ class Algorithm:
         self.tweetTfmer = TfidfTransformer()
 
     def predict_sentiment(self, processed_tweets):
-        # trying the classifier
-        # very short and fake movie reviews
-        # reviews_new = ['This movie was excellent', 'Absolute joy ride',
-        #                'Steven Seagal was terrible', 'Steven Seagal shone through.',
-        #                'This was certainly a movie', 'Two thumbs up', 'I fell asleep halfway through',
-        #                "We can't wait for the sequel!!", '!', '?', 'I cannot recommend this highly enough',
-        #                'instant classic.', 'Steven Seagal was amazing. His performance was Oscar-worthy.']
-
         tweets_counts = self.tweetVzer.transform(processed_tweets)  # turn text into count vector
         tweets_tfidf = self.tweetTfmer.transform(tweets_counts)  # turn into tfidf vector
 
@@ -119,7 +125,7 @@ class Algorithm:
 
         # print out results
         for review, category in zip(processed_tweets, pred):
-            print(review, category)
+            print(f'{review=}, \t{category=}')
             # store 10 sample data
             if category and len(pos_tweets) < 10:
                 pos_tweets.append(review)
