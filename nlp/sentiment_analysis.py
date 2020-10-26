@@ -4,71 +4,139 @@ import spacy
 import string
 
 # twitter samples form nltk
-from nltk.corpus import twitter_samples, stopwords
+from nltk.corpus import twitter_samples
 
 # sklearn library to build model and classify the tweets
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer, CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import MultinomialNB
 
-SPACY_DIR = '/Users/somayoshida/.local/share/virtualenvs/HowWeFeelAbout-hlN-1I0m/lib/python3.8/site-packages/en_core_web_sm/en_core_web_sm-2.3.1'
+SPACY_DIR = 'en'
 
 
 class Model:
-    def __init__(self, rebuild=False):
+    def __init__(self, algorithm, rebuild=False):
         """
         Constructor
         """
-        self.text_classifier = None
-        self.algorithm = Algorithm()
+        self.__text_classifier = None
+        self.__algorithm = algorithm
+        self.__rebuild = rebuild
+        self.__sample_size = 50
 
-        if rebuild:  # build model from nltk sample tweets
+    @property
+    def text_classifier(self):
+        return self.__text_classifier
+
+    @property
+    def algorithm(self):
+        return self.__algorithm
+
+    def run(self):
+        if self.__rebuild:  # build model from nltk sample tweets
             print('building model')
             self.__build_model()
 
         else:  # load from file
             print('loading model')
             with open('text_classifier', 'rb') as training_model:
-                self.text_classifier = pickle.load(training_model)
+                self.__text_classifier = pickle.load(training_model)
 
     def __build_model(self):
-        pos_samples = self.algorithm.get_labeled_tweets('positive_tweets.json')
-        neg_samples = self.algorithm.get_labeled_tweets('negative_tweets.json')
+        samples = self.__get_labeled_tweets() # list of cleaned string tweets
+        labels = [1] * self.__sample_size + [0] * self.__sample_size
 
-        pos_samples = [' '.join(tweet) for tweet in pos_samples]
-        neg_samples = [' '.join(tweet) for tweet in neg_samples]
+        docs_train, docs_test, y_train, y_test = train_test_split(samples, labels,
+                                                                  test_size=0.20, random_state=12)
 
-        # vectorizer = TfidfVectorizer(max_features=2500, min_df=7, max_df=0.8, stop_words=stopwords.words('english'))
-        vectorizer = TfidfVectorizer(max_features=2500)
-        samples = vectorizer.fit_transform(pos_samples + neg_samples).toarray()
-        # neg_samples = vectorizer.fit_transform(neg_samples).toarray()
+        # initialize CountVectorizer
+        tweetVzer = CountVectorizer(min_df=2, max_features=3000)  # use top 3000 words only. 78.25% acc.
 
-        labels = [1] * len(pos_samples) + [0] * len(neg_samples)
+        # fit and tranform using training text
+        docs_train_counts = tweetVzer.fit_transform(docs_train)
 
-        text_train, text_test, label_train, label_test = \
-            train_test_split(samples, labels, test_size=0.2, random_state=0)
-        self.text_classifier = RandomForestClassifier(n_estimators=200, random_state=0)
-        self.text_classifier.fit(text_train, label_train)
-        predictions = self.text_classifier.predict(text_test)
+        # Convert raw frequency counts into TF-IDF values
+        tweetTfmer = TfidfTransformer()
+        docs_train_tfidf = tweetTfmer.fit_transform(docs_train_counts)
 
-        print(accuracy_score(label_test, predictions))
+
+
+        # testing data
+        # Using the fitted vectorizer and transformer, tranform the test data
+        docs_test_counts = tweetVzer.transform(docs_test)
+        docs_test_tfidf = tweetTfmer.transform(docs_test_counts)
+
+
+
+        # Build model with Multinominal Naive Bayes
+        # Train a Multimoda Naive Bayes classifier. Again, we call it "fitting"
+        self.__text_classifier = MultinomialNB()
+        self.text_classifier.fit(docs_train_tfidf, y_train)
+
+
+        # Testing with actuals
+        # Predict the Test set results, find accuracy
+        y_pred = self.text_classifier.predict(docs_test_tfidf)
+        print(accuracy_score(y_test, y_pred))
+
+        # trying the classifier
+        # very short and fake movie reviews
+        reviews_new = ['This movie was excellent', 'Absolute joy ride',
+                       'Steven Seagal was terrible', 'Steven Seagal shone through.',
+                       'This was certainly a movie', 'Two thumbs up', 'I fell asleep halfway through',
+                       "We can't wait for the sequel!!", '!', '?', 'I cannot recommend this highly enough',
+                       'instant classic.', 'Steven Seagal was amazing. His performance was Oscar-worthy.']
+
+        reviews_new_counts = tweetVzer.transform(reviews_new)  # turn text into count vector
+        reviews_new_tfidf = tweetTfmer.transform(reviews_new_counts)  # turn into tfidf vector
+
+        # have classifier make a prediction
+        pred = self.text_classifier.predict(reviews_new_tfidf)
+
+        # print out results
+        print(len(reviews_new), len(pred))
+        for review, category in zip(reviews_new, pred):
+            print(review, category)
+
+
         print('writing model')
         with open('text_classifier', 'wb') as picklefile:
             pickle.dump(self.text_classifier, picklefile)
 
-class Algorithm:
-    def __init__(self):
-        self.__model_nlp = spacy.load(SPACY_DIR)
-
-    def get_labeled_tweets(self, file_name):
+    def __get_labeled_tweets(self):
         """
         Get labeled tweets from nltk
         :param file_name: name of file in string
         :return: cleaned list of lists that contain tokens for each tweets
         """
-        raw_tweets = [' '.join(tokens) for tokens in twitter_samples.tokenized(file_name)[:100]]
+        pos_sample = twitter_samples.tokenized('positive_tweets.json')[:self.__sample_size]
+        raw_tweets = [' '.join(tokens) for tokens in pos_sample]
+
+        neg_sample = twitter_samples.tokenized('negative_tweets.json')[:self.__sample_size]
+        raw_tweets += [' '.join(tokens) for tokens in neg_sample]
         # print(raw_tweets) # show raw tweets sample form nltk
+
+        return self.algorithm.process_tweets(raw_tweets)
+
+
+class Algorithm:
+    def __init__(self):
+        self.__model_nlp = spacy.load(SPACY_DIR)
+        self.model = None
+
+    def process_tweets(self, tweets):
+        tweets = self.clean_tweets(tweets)
+        tweets = [' '.join(tweet) for tweet in tweets]
+        return tweets
+
+    def clean_tweets(self, raw_tweets):
+        """
+        clean given tweets
+        :param raw_tweets: list of strings
+        :return: cleaned tokenized tweets
+        """
         tokenized_tweets = []
 
         # obtain tokenizer object for each tweets from raw_tweets
