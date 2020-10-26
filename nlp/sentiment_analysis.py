@@ -9,7 +9,6 @@ from nltk.corpus import twitter_samples
 # sklearn library to build model and classify the tweets
 from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer, CountVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 
@@ -17,14 +16,14 @@ SPACY_DIR = 'en'
 
 
 class Model:
-    def __init__(self, algorithm, rebuild=False):
+    def __init__(self, algorithm, rebuild=False, sample_size=1000):
         """
         Constructor
         """
         self.__text_classifier = None
         self.__algorithm = algorithm
         self.__rebuild = rebuild
-        self.__sample_size = 50
+        self.__sample_size = sample_size
 
     @property
     def text_classifier(self):
@@ -45,61 +44,34 @@ class Model:
                 self.__text_classifier = pickle.load(training_model)
 
     def __build_model(self):
-        samples = self.__get_labeled_tweets() # list of cleaned string tweets
+        tweet_samples = self.__get_labeled_tweets() # list of cleaned string tweets
         labels = [1] * self.__sample_size + [0] * self.__sample_size
 
-        docs_train, docs_test, y_train, y_test = train_test_split(samples, labels,
+        docs_train, docs_test, y_train, y_test = train_test_split(tweet_samples, labels,
                                                                   test_size=0.20, random_state=12)
 
-        # initialize CountVectorizer
-        tweetVzer = CountVectorizer(min_df=2, max_features=3000)  # use top 3000 words only. 78.25% acc.
-
-        # fit and tranform using training text
-        docs_train_counts = tweetVzer.fit_transform(docs_train)
-
+        # fit and transform using training text
+        docs_train_counts = self.algorithm.tweetVzer.fit_transform(docs_train)
         # Convert raw frequency counts into TF-IDF values
-        tweetTfmer = TfidfTransformer()
-        docs_train_tfidf = tweetTfmer.fit_transform(docs_train_counts)
-
+        docs_train_tfidf = self.algorithm.tweetTfmer.fit_transform(docs_train_counts)
 
 
         # testing data
         # Using the fitted vectorizer and transformer, tranform the test data
-        docs_test_counts = tweetVzer.transform(docs_test)
-        docs_test_tfidf = tweetTfmer.transform(docs_test_counts)
+        docs_test_counts = self.algorithm.tweetVzer.transform(docs_test)
+        docs_test_tfidf = self.algorithm.tweetTfmer.transform(docs_test_counts)
+        self.__build_classifier(docs_train_tfidf, docs_test_tfidf, y_train, y_test)
 
-
-
+    def __build_classifier(self, docs_train_tfidf, docs_test_tfidf, y_train, y_test):
         # Build model with Multinominal Naive Bayes
         # Train a Multimoda Naive Bayes classifier. Again, we call it "fitting"
         self.__text_classifier = MultinomialNB()
         self.text_classifier.fit(docs_train_tfidf, y_train)
 
-
         # Testing with actuals
         # Predict the Test set results, find accuracy
         y_pred = self.text_classifier.predict(docs_test_tfidf)
-        print(accuracy_score(y_test, y_pred))
-
-        # trying the classifier
-        # very short and fake movie reviews
-        reviews_new = ['This movie was excellent', 'Absolute joy ride',
-                       'Steven Seagal was terrible', 'Steven Seagal shone through.',
-                       'This was certainly a movie', 'Two thumbs up', 'I fell asleep halfway through',
-                       "We can't wait for the sequel!!", '!', '?', 'I cannot recommend this highly enough',
-                       'instant classic.', 'Steven Seagal was amazing. His performance was Oscar-worthy.']
-
-        reviews_new_counts = tweetVzer.transform(reviews_new)  # turn text into count vector
-        reviews_new_tfidf = tweetTfmer.transform(reviews_new_counts)  # turn into tfidf vector
-
-        # have classifier make a prediction
-        pred = self.text_classifier.predict(reviews_new_tfidf)
-
-        # print out results
-        print(len(reviews_new), len(pred))
-        for review, category in zip(reviews_new, pred):
-            print(review, category)
-
+        print(f'the accuracy for this model testing: {accuracy_score(y_test, y_pred)}')
 
         print('writing model')
         with open('text_classifier', 'wb') as picklefile:
@@ -125,6 +97,43 @@ class Algorithm:
     def __init__(self):
         self.__model_nlp = spacy.load(SPACY_DIR)
         self.model = None
+
+        self.tweetVzer = CountVectorizer(min_df=2, max_features=3000)
+        self.tweetTfmer = TfidfTransformer()
+
+    def predict_sentiment(self, processed_tweets):
+        # trying the classifier
+        # very short and fake movie reviews
+        # reviews_new = ['This movie was excellent', 'Absolute joy ride',
+        #                'Steven Seagal was terrible', 'Steven Seagal shone through.',
+        #                'This was certainly a movie', 'Two thumbs up', 'I fell asleep halfway through',
+        #                "We can't wait for the sequel!!", '!', '?', 'I cannot recommend this highly enough',
+        #                'instant classic.', 'Steven Seagal was amazing. His performance was Oscar-worthy.']
+
+        tweets_counts = self.tweetVzer.transform(processed_tweets)  # turn text into count vector
+        tweets_tfidf = self.tweetTfmer.transform(tweets_counts)  # turn into tfidf vector
+
+        # have classifier make a prediction
+        pred = self.model.text_classifier.predict(tweets_tfidf)
+        pos_tweets, neg_tweets = [], []
+
+        # print out results
+        for review, category in zip(processed_tweets, pred):
+            print(review, category)
+            # store 10 sample data
+            if category and len(pos_tweets) < 10:
+                pos_tweets.append(review)
+            elif len(neg_tweets) < 10:
+                neg_tweets.append(review)
+
+        # create dictionary to be returned with information
+        res_dict = dict()
+        res_dict['Positiveness'] = sum(pred)/len(pred)*100
+        res_dict['Positive_tweets'] = pos_tweets[:]
+        res_dict['Negative_tweets'] = neg_tweets[:]
+        res_dict['Num_actual_tweets'] = len(processed_tweets)
+
+        return res_dict
 
     def process_tweets(self, tweets):
         tweets = self.clean_tweets(tweets)

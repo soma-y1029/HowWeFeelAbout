@@ -3,9 +3,9 @@ import tweepy, time
 from nlp.sentiment_analysis import Model
 
 class Tweets():
-    def __init__(self, text_query):
+    def __init__(self, text_query, size=100):
         self.__text_query = text_query
-        self.__count = 100
+        self.__count = size
         self.__api = None
         self.tweets_list = []
         self.__run()

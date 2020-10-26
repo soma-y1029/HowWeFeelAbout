@@ -1,22 +1,20 @@
 from nlp.sentiment_analysis import Model, Algorithm
 from nlp.twitter import Tweets
 
-
 # @staticmethod
 def run_sentimet_analyzer(query):
     print('run model')
     algorithm = Algorithm()
-    model = Model(algorithm, rebuild=True)
+    model = Model(algorithm, rebuild=True, sample_size=500)
     algorithm.model = model
     model.run()
 
-    tweets = Tweets(query)
+    tweets = Tweets(query, size=10)
     real_tweets = tweets.get_tweets_list()
 
     processed_tweets = algorithm.process_tweets(real_tweets)
-    # model.text_classifier.predict(processed_tweets)
+    res_dict = algorithm.predict_sentiment(processed_tweets)
 
+    return res_dict
 
-    return 75
-
-run_sentimet_analyzer('test')
+# run_sentimet_analyzer('vote')
