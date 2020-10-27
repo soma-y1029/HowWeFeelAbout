@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 
 # directory of spacy library
-SPACY_DIR = '/Users/somayoshida/.local/share/virtualenvs/HowWeFeelAbout-hlN-1I0m/lib/python3.8/site-packages/en_core_web_sm/en_core_web_sm-2.3.1'
+SPACY_DIR = 'en'
 
 
 class Model:
