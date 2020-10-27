@@ -38,6 +38,3 @@ def run_sentiment_analyzer(query):
     # return the res_dict that contains information about the sentiment analysis and the result
     print(f'\n\nsample output: {res_dict=}')
     return res_dict
-
-
-run_sentiment_analyzer('vote')

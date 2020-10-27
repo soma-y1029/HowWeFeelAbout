@@ -196,7 +196,7 @@ class Algorithm:
 
         # print out results
         for tweet, category, i in zip(processed_tweets, pred, range(len(pred))):
-            print(f'{tweet=}, \t{category=}')
+            # print(f'{tweet=}, \t{category=}')
             # store 10 sample data
             if category and len(pos_tweets) < 10:
                 pos_tweets.append(real_tweets[i])
