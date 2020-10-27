@@ -2,6 +2,8 @@ import pickle
 import re
 import spacy
 import string
+import time
+import multiprocessing
 
 # twitter samples form nltk
 from nltk.corpus import twitter_samples
@@ -11,9 +13,6 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
-
-# directory of spacy library
-SPACY_DIR = 'en'
 
 
 class Model:
@@ -51,11 +50,18 @@ class Model:
         :return: None
         """
         if self.__rebuild:  # build model from nltk sample tweets
+            start_time = time.time()
             self.__set_model()
+            print(f'Time Taken to build model: {time.time()-start_time}')
+
+            start_time = time.time()
             self.__save_to_file()
+            print(f'Time Taken to save data to files: {time.time() - start_time}')
 
         else:  # load from file
+            start_time = time.time()
             self.__load_file()
+            print(f'Time Taken to load data to files: {time.time() - start_time}')
 
     def __set_model(self):
         """
@@ -78,6 +84,7 @@ class Model:
         # Using the fitted vectorizer and transformer, tranform the test data
         docs_test_counts = self.algorithm.tweetVzer.transform(docs_test)
         docs_test_tfidf = self.algorithm.tweetTfmer.transform(docs_test_counts)
+
         self.__build_classifier(docs_train_tfidf, docs_test_tfidf, y_train, y_test)
 
     def __build_classifier(self, docs_train_tfidf, docs_test_tfidf, y_train, y_test):
@@ -136,8 +143,10 @@ class Model:
         :param file_name: name of file in string
         :return: cleaned list of lists that contain tokens for each tweets
         """
+        start_time = time.time()
         pos_samples = twitter_samples.strings('positive_tweets.json')[:self.__sample_size]
         neg_samples = twitter_samples.strings('negative_tweets.json')[:self.__sample_size]
+        print(f'Time Taken to load data of sample tweets from files: {time.time() - start_time}')
         # print(pos_samples+neg_samples) # show raw tweets sample form nltk
 
         return self.algorithm.process_tweets(pos_samples+neg_samples)
@@ -147,11 +156,12 @@ class Algorithm:
     """
     Algorithm class that hodls algorithms to process sentiment analysis
     """
-    def __init__(self):
+
+    def __init__(self, spacy_dir):
         """
         Constructor
         """
-        self.__model_nlp = spacy.load(SPACY_DIR)
+        self.__model_nlp = spacy.load(spacy_dir)
         self.__model = None
         self.__tweetVzer = CountVectorizer(min_df=2, max_features=3000)
         self.__tweetTfmer = TfidfTransformer()
@@ -218,8 +228,10 @@ class Algorithm:
         :param tweets: tweets to be processed
         :return: processed algorithm-use-ready tweets
         """
+        start_time = time.time()
         tweets = self.__clean_tweets(tweets)
         tweets = [' '.join(tweet) for tweet in tweets]
+        print(f'Time Taken to process tweets: {time.time() - start_time}')
         return tweets
 
     def __clean_tweets(self, raw_tweets):
