@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 
 # directory of spacy library
-SPACY_DIR = '/Users/somayoshida/.local/share/virtualenvs/HowWeFeelAbout-hlN-1I0m/lib/python3.8/site-packages/en_core_web_sm/en_core_web_sm-2.3.1'
+SPACY_DIR = 'en'
 
 
 class Model:
@@ -196,7 +196,7 @@ class Algorithm:
 
         # print out results
         for tweet, category, i in zip(processed_tweets, pred, range(len(pred))):
-            print(f'{tweet=}, \t{category=}')
+            # print(f'{tweet=}, \t{category=}')
             # store 10 sample data
             if category and len(pos_tweets) < 10:
                 pos_tweets.append(real_tweets[i])
