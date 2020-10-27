@@ -40,10 +40,10 @@ class Tweets():
         :return: None
         """
         # developer account keys
-        consumer_key = 'QHDBbSZt7YlCfl7JPWsg5NSih'
-        consumer_secret = 'qNTgb8GqKh1kXXTkosQTEd9aPdhxVqilLzAR6q0Je0xJdlzUmX'
-        access_token = '1306672127114842113-jAwRNJA1OxgHFfk4c7B8AqLYNox7oh'
-        access_token_secret = 'EdJXVxdVuJhrCIuoyLKedMGHenoVibfx9ckf6fk1BJXhO'
+        consumer_key = ''
+        consumer_secret = ''
+        access_token = ''
+        access_token_secret = ''
 
         # authentication of twitter developer account
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
