@@ -1,37 +1,67 @@
-import tweepy, time
+import time
+import tweepy
 
 
 class Tweets():
+    """
+    Tweets class that gain tweets with provided query form twitter.com
+    """
     def __init__(self, text_query, size=100):
+        """
+        Constructor
+        :param text_query: query to be searched
+        :param size: size of tweet to be obtained from twitter
+        """
         self.__text_query = text_query
         self.__count = size
         self.__api = None
-        self.tweets_list = []
+        self.__tweets_list = []
         self.__run()
 
-    def get_tweets_list(self):
-        return self.tweets_list
+    @property
+    def tweets_list(self):
+        """
+        Property of tweets_list
+        :return: tweets_list
+        """
+        return self.__tweets_list
 
     def __run(self):
+        """
+        Run two methods to obtain tweets
+        :return: None
+        """
         self.__set_api()
         self.__get_tweets()
 
     def __set_api(self):
-        consumer_key = ''
-        consumer_secret = ''
-        access_token = ''
-        access_token_secret = ''
+        """
+        Set api with keys
+        :return: None
+        """
+        # developer account keys
+        consumer_key = 'QHDBbSZt7YlCfl7JPWsg5NSih'
+        consumer_secret = 'qNTgb8GqKh1kXXTkosQTEd9aPdhxVqilLzAR6q0Je0xJdlzUmX'
+        access_token = '1306672127114842113-jAwRNJA1OxgHFfk4c7B8AqLYNox7oh'
+        access_token_secret = 'EdJXVxdVuJhrCIuoyLKedMGHenoVibfx9ckf6fk1BJXhO'
+
+        # authentication of twitter developer account
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         self.__api = tweepy.API(auth, wait_on_rate_limit=True)
 
     def __get_tweets(self):
+        """
+        Get tweets with query from twitter
+        :return: None
+        """
         try:
             # create query from tweet api search.
             # limits to english, self.__count number of tweet
             quries = tweepy.Cursor(self.__api.search, q=self.__text_query, lang='en',
                                    tweet_mode='extended', result_type='recent').items(self.__count)
 
+            # get status from quries and get full text from tweet_status
             for tweet_status in quries:
                 self.__get_full_text(tweet_status)
 
@@ -40,8 +70,13 @@ class Tweets():
             time.sleep(3)
 
     def __get_full_text(self, status):
+        """
+        Get full text based on the tweet status
+        :param status: status of a tweet
+        :return: None
+        """
         if hasattr(status, "retweeted_status"):  # Check if Retweet
             if hasattr(status, "retweeted_status"):  # Check if Retweet
-                self.tweets_list.append(f'{status.retweeted_status.full_text}')
+                self.__tweets_list.append(f'{status.retweeted_status.full_text}')
             else:
-                self.tweets_list.append(f'{status.full_text}')
+                self.__tweets_list.append(f'{status.full_text}')
