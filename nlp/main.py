@@ -10,7 +10,6 @@ def run_sentiment_analyzer(query):
     :param query: query to be searched
     :return: dictionary of data
     """
-
     start_time = time.time()
 
     # values to be adjusted
@@ -55,7 +54,6 @@ def run_sentiment_analyzer(query):
 
     print(f'\n\n {time.time()-start_time}')
     return res_dict
-
 
 
 run_sentiment_analyzer('election')
