@@ -19,13 +19,12 @@ def run_sentiment_analyzer(query):
     sample_size_for_model = 5000
     size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
 
-    consumer_key = 'QHDBbSZt7YlCfl7JPWsg5NSih'
-    consumer_secret = 'qNTgb8GqKh1kXXTkosQTEd9aPdhxVqilLzAR6q0Je0xJdlzUmX'
-    access_token = '1306672127114842113-jAwRNJA1OxgHFfk4c7B8AqLYNox7oh'
-    access_token_secret = 'EdJXVxdVuJhrCIuoyLKedMGHenoVibfx9ckf6fk1BJXhO'
+    consumer_key = ''
+    consumer_secret = ''
+    access_token = ''
+    access_token_secret = ''
 
-    spacy_dir = '/Users/somayoshida/.local/share/virtualenvs/HowWeFeelAbout-hlN-1I0m/lib/python3.8/site-packages/en_core_web_sm/en_core_web_sm-2.3.1'
-
+    spacy_dir = ''
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')
 
