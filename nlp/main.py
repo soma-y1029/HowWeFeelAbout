@@ -1,5 +1,4 @@
 import time
-import os
 
 from nlp.sentiment_analysis import Model, Algorithm
 from nlp.twitter import Tweets
@@ -57,6 +56,3 @@ def run_sentiment_analyzer(query):
 
     print(f'\n\n {time.time()-start_time}')
     return res_dict
-
-
-run_sentiment_analyzer('election')
