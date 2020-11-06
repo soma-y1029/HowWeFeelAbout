@@ -1,7 +1,10 @@
 import time
+import os
 
 from nlp.sentiment_analysis import Model, Algorithm
 from nlp.twitter import Tweets
+from boto.s3.connection import S3Connection
+from decouple import config
 
 
 def run_sentiment_analyzer(query):
@@ -17,12 +20,12 @@ def run_sentiment_analyzer(query):
     sample_size_for_model = 5000
     size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
 
-    consumer_key = ''
-    consumer_secret = ''
-    access_token = ''
-    access_token_secret = ''
+    consumer_key = S3Connection(config(['COMSUMER_KEY']))
+    consumer_secret = S3Connection(config(['COMSUMER_SECRET']))
+    access_token = S3Connection(config(['ACCESS_TOKEN']))
+    access_token_secret = S3Connection(config(['ACCESS_TOKEN_SECRET']))
 
-    spacy_dir = ''
+    spacy_dir = S3Connection(config(['SPACY_DIR']))
 
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')

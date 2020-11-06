@@ -27,12 +27,13 @@ class DatabaseWrapper(SQLiteDatabaseWrapper):
         # (`libspatialite`). If it's not in the system library path (e.g., it
         # cannot be found by `ctypes.util.find_library`), then it may be set
         # manually in the settings via the `SPATIALITE_LIBRARY_PATH` setting.
-        self.lib_spatialite_paths = [name for name in [
-            getattr(settings, 'SPATIALITE_LIBRARY_PATH', None),
-            'mod_spatialite.so',
-            'mod_spatialite',
-            find_library('spatialite'),
-        ] if name is not None]
+        self.spatialite_lib = getattr(settings, 'SPATIALITE_LIBRARY_PATH',
+                                      find_library('spatialite'))
+        if not self.spatialite_lib:
+            raise ImproperlyConfigured('Unable to locate the SpatiaLite library. '
+                                       'Make sure it is in your library path, or set '
+                                       'SPATIALITE_LIBRARY_PATH in your settings.'
+                                       )
         super().__init__(*args, **kwargs)
 
     def get_new_connection(self, conn_params):
@@ -46,23 +47,12 @@ class DatabaseWrapper(SQLiteDatabaseWrapper):
                 'extension loading.'
             )
         # Load the SpatiaLite library extension on the connection.
-        for path in self.lib_spatialite_paths:
-            try:
-                conn.load_extension(path)
-            except Exception:
-                if getattr(settings, 'SPATIALITE_LIBRARY_PATH', None):
-                    raise ImproperlyConfigured(
-                        'Unable to load the SpatiaLite library extension '
-                        'as specified in your SPATIALITE_LIBRARY_PATH setting.'
-                    )
-                continue
-            else:
-                break
-        else:
+        try:
+            conn.load_extension(self.spatialite_lib)
+        except Exception as exc:
             raise ImproperlyConfigured(
-                'Unable to load the SpatiaLite library extension. '
-                'Library names tried: %s' % ', '.join(self.lib_spatialite_paths)
-            )
+                'Unable to load the SpatiaLite library extension "%s"' % self.spatialite_lib
+            ) from exc
         return conn
 
     def prepare_database(self):

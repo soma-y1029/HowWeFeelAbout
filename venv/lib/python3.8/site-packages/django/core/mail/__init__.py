@@ -42,7 +42,6 @@ def send_mail(subject, message, from_email, recipient_list,
     Easy wrapper for sending a single message to a recipient list. All members
     of the recipient list will see the other recipients in the 'To' field.
 
-    If from_email is None, use the DEFAULT_FROM_EMAIL setting.
     If auth_user is None, use the EMAIL_HOST_USER setting.
     If auth_password is None, use the EMAIL_HOST_PASSWORD setting.
 
@@ -92,8 +91,6 @@ def mail_admins(subject, message, fail_silently=False, connection=None,
     """Send a message to the admins, as defined by the ADMINS setting."""
     if not settings.ADMINS:
         return
-    if not all(isinstance(a, (list, tuple)) and len(a) == 2 for a in settings.ADMINS):
-        raise ValueError('The ADMINS setting must be a list of 2-tuples.')
     mail = EmailMultiAlternatives(
         '%s%s' % (settings.EMAIL_SUBJECT_PREFIX, subject), message,
         settings.SERVER_EMAIL, [a[1] for a in settings.ADMINS],
@@ -109,8 +106,6 @@ def mail_managers(subject, message, fail_silently=False, connection=None,
     """Send a message to the managers, as defined by the MANAGERS setting."""
     if not settings.MANAGERS:
         return
-    if not all(isinstance(a, (list, tuple)) and len(a) == 2 for a in settings.MANAGERS):
-        raise ValueError('The MANAGERS setting must be a list of 2-tuples.')
     mail = EmailMultiAlternatives(
         '%s%s' % (settings.EMAIL_SUBJECT_PREFIX, subject), message,
         settings.SERVER_EMAIL, [a[1] for a in settings.MANAGERS],

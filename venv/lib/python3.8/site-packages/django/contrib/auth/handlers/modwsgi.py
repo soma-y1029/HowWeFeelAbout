@@ -1,5 +1,6 @@
 from django import db
 from django.contrib import auth
+from django.utils.encoding import force_bytes
 
 UserModel = auth.get_user_model()
 
@@ -38,6 +39,6 @@ def groups_for_user(environ, username):
             return []
         if not user.is_active:
             return []
-        return [group.name.encode() for group in user.groups.all()]
+        return [force_bytes(group.name) for group in user.groups.all()]
     finally:
         db.close_old_connections()

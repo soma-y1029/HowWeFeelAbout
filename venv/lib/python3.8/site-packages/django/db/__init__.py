@@ -18,6 +18,11 @@ connections = ConnectionHandler()
 router = ConnectionRouter()
 
 
+# DatabaseWrapper.__init__() takes a dictionary, not a settings module, so we
+# manually create the dictionary from the settings, passing only the settings
+# that the database backends care about.
+# We load all these up for backwards compatibility, you should use
+# connections['default'] instead.
 class DefaultConnectionProxy:
     """
     Proxy for accessing the default DatabaseWrapper object's attributes. If you
@@ -37,7 +42,6 @@ class DefaultConnectionProxy:
         return connections[DEFAULT_DB_ALIAS] == other
 
 
-# For backwards compatibility. Prefer connections['default'] instead.
 connection = DefaultConnectionProxy()
 
 

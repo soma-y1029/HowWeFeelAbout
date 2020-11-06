@@ -10,7 +10,7 @@ def register(*models, site=None):
     The `site` kwarg is an admin site to use instead of the default admin site.
     """
     from django.contrib.admin import ModelAdmin
-    from django.contrib.admin.sites import AdminSite, site as default_site
+    from django.contrib.admin.sites import site as default_site, AdminSite
 
     def _model_admin_wrapper(admin_class):
         if not models:
