@@ -25,9 +25,9 @@ class MigrationExecutor:
         """
         plan = []
         if clean_start:
-            applied = {}
+            applied = set()
         else:
-            applied = dict(self.loader.applied_migrations)
+            applied = set(self.loader.applied_migrations)
         for target in targets:
             # If the target is (app_label, None), that means unmigrate everything
             if target[1] is None:
@@ -36,7 +36,7 @@ class MigrationExecutor:
                         for migration in self.loader.graph.backwards_plan(root):
                             if migration in applied:
                                 plan.append((self.loader.graph.nodes[migration], True))
-                                applied.pop(migration)
+                                applied.remove(migration)
             # If the migration is already applied, do backwards mode,
             # otherwise do forwards mode.
             elif target in applied:
@@ -53,12 +53,12 @@ class MigrationExecutor:
                     for migration in self.loader.graph.backwards_plan(node):
                         if migration in applied:
                             plan.append((self.loader.graph.nodes[migration], True))
-                            applied.pop(migration)
+                            applied.remove(migration)
             else:
                 for migration in self.loader.graph.forwards_plan(target):
                     if migration not in applied:
                         plan.append((self.loader.graph.nodes[migration], False))
-                        applied[migration] = self.loader.graph.nodes[migration]
+                        applied.add(migration)
         return plan
 
     def _create_project_state(self, with_applied_migrations=False):
@@ -210,9 +210,26 @@ class MigrationExecutor:
 
         return state
 
+    def collect_sql(self, plan):
+        """
+        Take a migration plan and return a list of collected SQL statements
+        that represent the best-efforts version of that plan.
+        """
+        statements = []
+        state = None
+        for migration, backwards in plan:
+            with self.connection.schema_editor(collect_sql=True, atomic=migration.atomic) as schema_editor:
+                if state is None:
+                    state = self.loader.project_state((migration.app_label, migration.name), at_end=False)
+                if not backwards:
+                    state = migration.apply(state, schema_editor, collect_sql=True)
+                else:
+                    state = migration.unapply(state, schema_editor, collect_sql=True)
+            statements.extend(schema_editor.collected_sql)
+        return statements
+
     def apply_migration(self, state, migration, fake=False, fake_initial=False):
         """Run a migration forwards."""
-        migration_recorded = False
         if self.progress_callback:
             self.progress_callback("apply_start", migration, fake)
         if not fake:
@@ -225,22 +242,16 @@ class MigrationExecutor:
                 # Alright, do it normally
                 with self.connection.schema_editor(atomic=migration.atomic) as schema_editor:
                     state = migration.apply(state, schema_editor)
-                    self.record_migration(migration)
-                    migration_recorded = True
-        if not migration_recorded:
-            self.record_migration(migration)
-        # Report progress
-        if self.progress_callback:
-            self.progress_callback("apply_success", migration, fake)
-        return state
-
-    def record_migration(self, migration):
         # For replacement migrations, record individual statuses
         if migration.replaces:
             for app_label, name in migration.replaces:
                 self.recorder.record_applied(app_label, name)
         else:
             self.recorder.record_applied(migration.app_label, migration.name)
+        # Report progress
+        if self.progress_callback:
+            self.progress_callback("apply_success", migration, fake)
+        return state
 
     def unapply_migration(self, state, migration, fake=False):
         """Run a migration backwards."""
@@ -311,11 +322,8 @@ class MigrationExecutor:
         apps = after_state.apps
         found_create_model_migration = False
         found_add_field_migration = False
-        fold_identifier_case = self.connection.features.ignores_table_name_case
         with self.connection.cursor() as cursor:
-            existing_table_names = set(self.connection.introspection.table_names(cursor))
-            if fold_identifier_case:
-                existing_table_names = {name.casefold() for name in existing_table_names}
+            existing_table_names = self.connection.introspection.table_names(cursor)
         # Make sure all create model and add field operations are done
         for operation in migration.operations:
             if isinstance(operation, migrations.CreateModel):
@@ -326,10 +334,7 @@ class MigrationExecutor:
                     model = global_apps.get_model(model._meta.swapped)
                 if should_skip_detecting_model(migration, model):
                     continue
-                db_table = model._meta.db_table
-                if fold_identifier_case:
-                    db_table = db_table.casefold()
-                if db_table not in existing_table_names:
+                if model._meta.db_table not in existing_table_names:
                     return False, project_state
                 found_create_model_migration = True
             elif isinstance(operation, migrations.AddField):
@@ -346,27 +351,19 @@ class MigrationExecutor:
 
                 # Handle implicit many-to-many tables created by AddField.
                 if field.many_to_many:
-                    through_db_table = field.remote_field.through._meta.db_table
-                    if fold_identifier_case:
-                        through_db_table = through_db_table.casefold()
-                    if through_db_table not in existing_table_names:
+                    if field.remote_field.through._meta.db_table not in existing_table_names:
                         return False, project_state
                     else:
                         found_add_field_migration = True
                         continue
-                with self.connection.cursor() as cursor:
-                    columns = self.connection.introspection.get_table_description(cursor, table)
-                for column in columns:
-                    field_column = field.column
-                    column_name = column.name
-                    if fold_identifier_case:
-                        column_name = column_name.casefold()
-                        field_column = field_column.casefold()
-                    if column_name == field_column:
-                        found_add_field_migration = True
-                        break
-                else:
+
+                column_names = [
+                    column.name for column in
+                    self.connection.introspection.get_table_description(self.connection.cursor(), table)
+                ]
+                if field.column not in column_names:
                     return False, project_state
+                found_add_field_migration = True
         # If we get this far and we found at least one CreateModel or AddField migration,
         # the migration is considered implicitly applied.
         return (found_create_model_migration or found_add_field_migration), after_state

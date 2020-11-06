@@ -6,7 +6,6 @@ import unicodedata
 
 from django.apps import apps as global_apps
 from django.contrib.auth import get_permission_codename
-from django.contrib.contenttypes.management import create_contenttypes
 from django.core import exceptions
 from django.db import DEFAULT_DB_ALIAS, router
 
@@ -15,7 +14,9 @@ def _get_all_permissions(opts):
     """
     Return (codename, name) for all permissions in the given opts.
     """
-    return [*_get_builtin_permissions(opts), *opts.permissions]
+    builtin = _get_builtin_permissions(opts)
+    custom = list(opts.permissions)
+    return builtin + custom
 
 
 def _get_builtin_permissions(opts):
@@ -36,11 +37,6 @@ def create_permissions(app_config, verbosity=2, interactive=True, using=DEFAULT_
     if not app_config.models_module:
         return
 
-    # Ensure that contenttypes are created for this app. Needed if
-    # 'django.contrib.auth' is in INSTALLED_APPS before
-    # 'django.contrib.contenttypes'.
-    create_contenttypes(app_config, verbosity=verbosity, interactive=interactive, using=using, apps=apps, **kwargs)
-
     app_label = app_config.label
     try:
         app_config = apps.get_app_config(app_label)
@@ -60,7 +56,7 @@ def create_permissions(app_config, verbosity=2, interactive=True, using=DEFAULT_
     for klass in app_config.get_models():
         # Force looking up the content types in the current database
         # before creating foreign keys to them.
-        ctype = ContentType.objects.db_manager(using).get_for_model(klass, for_concrete_model=False)
+        ctype = ContentType.objects.db_manager(using).get_for_model(klass)
 
         ctypes.add(ctype)
         for perm in _get_all_permissions(klass._meta):

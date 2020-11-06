@@ -1,7 +1,6 @@
 # This file is distributed under the same license as the Django package.
 #
 # Translators:
-# Emin Mastizada <emin@linux.com>, 2018,2020
 # Emin Mastizada <emin@linux.com>, 2016
 # Konul Allahverdiyeva <english.koni@gmail.com>, 2016
 # Zulfugar Ismayilzadeh <zulfuqar.ismayilzada@gmail.com>, 2017
@@ -9,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-14 19:53+0200\n"
-"PO-Revision-Date: 2020-07-14 22:38+0000\n"
-"Last-Translator: Transifex Bot <>\n"
+"POT-Creation-Date: 2017-01-19 16:49+0100\n"
+"PO-Revision-Date: 2017-09-19 16:41+0000\n"
+"Last-Translator: Zulfugar Ismayilzadeh <zulfuqar.ismayilzada@gmail.com>\n"
 "Language-Team: Azerbaijani (http://www.transifex.com/django/django/language/"
 "az/)\n"
 "MIME-Version: 1.0\n"
@@ -71,12 +70,6 @@ msgstr "Tarixi yoxdur"
 msgid "Has date"
 msgstr "Tarixi mövcuddur"
 
-msgid "Empty"
-msgstr "Boş"
-
-msgid "Not empty"
-msgstr "Boş deyil"
-
 #, python-format
 msgid ""
 "Please enter the correct %(username)s and password for a staff account. Note "
@@ -95,15 +88,6 @@ msgstr "Daha bir %(verbose_name)s əlavə et"
 msgid "Remove"
 msgstr "Yığışdır"
 
-msgid "Addition"
-msgstr "Əlavə"
-
-msgid "Change"
-msgstr "Dəyiş"
-
-msgid "Deletion"
-msgstr "Silmə"
-
 msgid "action time"
 msgstr "əməliyyat vaxtı"
 
@@ -117,7 +101,7 @@ msgid "object id"
 msgstr "obyekt id"
 
 #. Translators: 'repr' means representation
-#. (https://docs.python.org/library/functions.html#repr)
+#. (https://docs.python.org/3/library/functions.html#repr)
 msgid "object repr"
 msgstr "obyekt repr"
 
@@ -134,23 +118,23 @@ msgid "log entries"
 msgstr "loq yazıları"
 
 #, python-format
-msgid "Added “%(object)s”."
-msgstr "“%(object)s” əlavə edildi."
+msgid "Added \"%(object)s\"."
+msgstr "\"%(object)s\" əlavə olundu."
 
 #, python-format
-msgid "Changed “%(object)s” — %(changes)s"
-msgstr "“%(object)s” dəyişdirildi — %(changes)s"
+msgid "Changed \"%(object)s\" - %(changes)s"
+msgstr "\"%(object)s\" - %(changes)s dəyişiklikləri qeydə alındı."
 
 #, python-format
-msgid "Deleted “%(object)s.”"
-msgstr "“%(object)s” silindi."
+msgid "Deleted \"%(object)s.\""
+msgstr "\"%(object)s\" silindi."
 
 msgid "LogEntry Object"
 msgstr "LogEntry obyekti"
 
 #, python-brace-format
-msgid "Added {name} “{object}”."
-msgstr "{name} “{object}” əlavə edildi."
+msgid "Added {name} \"{object}\"."
+msgstr "{name} \"{object}\" əlavə edildi."
 
 msgid "Added."
 msgstr "Əlavə edildi."
@@ -159,16 +143,16 @@ msgid "and"
 msgstr "və"
 
 #, python-brace-format
-msgid "Changed {fields} for {name} “{object}”."
-msgstr "{name} “{object}” üçün {fields} dəyişdirildi."
+msgid "Changed {fields} for {name} \"{object}\"."
+msgstr "{name} \"{object}\" üçün {fields} dəyişdirildi."
 
 #, python-brace-format
 msgid "Changed {fields}."
 msgstr "{fields} dəyişdirildi."
 
 #, python-brace-format
-msgid "Deleted {name} “{object}”."
-msgstr "{name} “{object}” silindi."
+msgid "Deleted {name} \"{object}\"."
+msgstr "{name} \"{object}\" silindi."
 
 msgid "No fields changed."
 msgstr "Heç bir sahə dəyişmədi."
@@ -176,47 +160,48 @@ msgstr "Heç bir sahə dəyişmədi."
 msgid "None"
 msgstr "Heç nə"
 
-msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
+msgid ""
+"Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
 msgstr ""
-"Birdən çox seçmək üçün “Control” və ya Mac üçün “Command” düyməsini basılı "
-"tutun."
-
-#, python-brace-format
-msgid "The {name} “{obj}” was added successfully."
-msgstr "{name} “{obj}” uğurla əlavə edildi."
-
-msgid "You may edit it again below."
-msgstr "Bunu aşağıda təkrar redaktə edə bilərsiz."
+"Birdən çox seçmək üçün \"Control\" və ya Mac üçün \"Command\" düyməsini "
+"basılı tutun."
 
 #, python-brace-format
 msgid ""
-"The {name} “{obj}” was added successfully. You may add another {name} below."
+"The {name} \"{obj}\" was added successfully. You may edit it again below."
 msgstr ""
-"{name} “{obj}” uğurla əlavə edildi. Aşağıdan başqa bir {name} əlavə edə "
+"{name} \"{obj}\" uğurla əlavə edildi. Bunu təkrar aşağıdan dəyişdirə "
 "bilərsiz."
 
 #, python-brace-format
 msgid ""
-"The {name} “{obj}” was changed successfully. You may edit it again below."
-msgstr ""
-"{name} “{obj}” uğurla dəyişdirildi. Təkrar aşağıdan dəyişdirə bilərsiz."
-
-#, python-brace-format
-msgid "The {name} “{obj}” was added successfully. You may edit it again below."
-msgstr ""
-"{name} “{obj}” uğurla əlavə edildi. Bunu təkrar aşağıdan dəyişdirə bilərsiz."
-
-#, python-brace-format
-msgid ""
-"The {name} “{obj}” was changed successfully. You may add another {name} "
+"The {name} \"{obj}\" was added successfully. You may add another {name} "
 "below."
 msgstr ""
-"{name} “{obj}” uğurla dəyişdirildi. Aşağıdan başqa bir {name} əlavə edə "
+"{name} \"{obj}\" uğurla əlavə edildi. Aşağıdan başqa bir {name} əlavə edə "
 "bilərsiz."
 
 #, python-brace-format
-msgid "The {name} “{obj}” was changed successfully."
-msgstr "{name} “{obj}” uğurla dəyişdirildi."
+msgid "The {name} \"{obj}\" was added successfully."
+msgstr "{name} \"{obj}\" uğurla əlavə edildi."
+
+#, python-brace-format
+msgid ""
+"The {name} \"{obj}\" was changed successfully. You may edit it again below."
+msgstr ""
+"{name} \"{obj}\" uğurla dəyişdirildi. Təkrar aşağıdan dəyişdirə bilərsiz."
+
+#, python-brace-format
+msgid ""
+"The {name} \"{obj}\" was changed successfully. You may add another {name} "
+"below."
+msgstr ""
+"{name} \"{obj}\" uğurla dəyişdirildi. Aşağıdan başqa bir {name} əlavə edə "
+"bilərsiz."
+
+#, python-brace-format
+msgid "The {name} \"{obj}\" was changed successfully."
+msgstr "{name} \"{obj}\" uğurla dəyişdirildi."
 
 msgid ""
 "Items must be selected in order to perform actions on them. No items have "
@@ -229,12 +214,12 @@ msgid "No action selected."
 msgstr "Heç bir əməliyyat seçilmədi."
 
 #, python-format
-msgid "The %(name)s “%(obj)s” was deleted successfully."
-msgstr "%(name)s “%(obj)s” uğurla silindi."
+msgid "The %(name)s \"%(obj)s\" was deleted successfully."
+msgstr "%(name)s \"%(obj)s\" uğurla silindi."
 
 #, python-format
-msgid "%(name)s with ID “%(key)s” doesn’t exist. Perhaps it was deleted?"
-msgstr "“%(key)s” ID nömrəli %(name)s mövcud deyil. Silinmiş ola bilər?"
+msgid "%(name)s with ID \"%(key)s\" doesn't exist. Perhaps it was deleted?"
+msgstr "\"%(key)s\" id nömrəli %(name)s mövcud deyil. Çox güman ki, silinib?"
 
 #, python-format
 msgid "Add %s"
@@ -243,10 +228,6 @@ msgstr "%s əlavə et"
 #, python-format
 msgid "Change %s"
 msgstr "%s dəyiş"
-
-#, python-format
-msgid "View %s"
-msgstr "%s gör"
 
 msgid "Database error"
 msgstr "Bazada xəta"
@@ -304,8 +285,8 @@ msgstr "%(app)s administrasiyası"
 msgid "Page not found"
 msgstr "Səhifə tapılmadı"
 
-msgid "We’re sorry, but the requested page could not be found."
-msgstr "Üzr istəyirik, amma sorğulanan səhifə tapılmadı."
+msgid "We're sorry, but the requested page could not be found."
+msgstr "Üzrlər, amma soruşduğunuz sayt tapılmadı."
 
 msgid "Home"
 msgstr "Ev"
@@ -320,9 +301,11 @@ msgid "Server Error <em>(500)</em>"
 msgstr "Serverdə xəta <em>(500)</em>"
 
 msgid ""
-"There’s been an error. It’s been reported to the site administrators via "
+"There's been an error. It's been reported to the site administrators via "
 "email and should be fixed shortly. Thanks for your patience."
 msgstr ""
+"Xəta baş verdi. Sayt administratorlarına e-poçt göndərildi və onlar xəta ilə "
+"tezliklə məşğul olacaqlar. Səbrli olun."
 
 msgid "Run the selected action"
 msgstr "Seçdiyim əməliyyatı yerinə yetir"
@@ -340,23 +323,12 @@ msgstr "Bütün %(total_count)s sayda %(module_name)s seç"
 msgid "Clear selection"
 msgstr "Seçimi təmizlə"
 
-#, python-format
-msgid "Models in the %(name)s application"
-msgstr "%(name)s proqramındakı modellər"
-
-msgid "Add"
-msgstr "Əlavə et"
-
-msgid "View"
-msgstr "Gör"
-
-msgid "You don’t have permission to view or edit anything."
-msgstr "Nəyi isə görmək və ya redaktə etmək icazəniz yoxdur."
-
 msgid ""
-"First, enter a username and password. Then, you’ll be able to edit more user "
+"First, enter a username and password. Then, you'll be able to edit more user "
 "options."
 msgstr ""
+"Əvvəlcə istifadəçi adını və parolu daxil edin. Ondan sonra daha çox "
+"istifadəçi imkanlarını redaktə edə biləcəksiniz."
 
 msgid "Enter a username and password."
 msgstr "İstifadəçi adını və parolu daxil edin."
@@ -365,7 +337,9 @@ msgid "Change password"
 msgstr "Parolu dəyiş"
 
 msgid "Please correct the error below."
-msgstr "Lütfən aşağıdakı xətanı düzəldin."
+msgstr ""
+"one: Aşağıdakı səhvi düzəltməyi xahiş edirik.\n"
+"other: Aşağıdakı səhvləri düzəltməyi xahiş edirik."
 
 msgid "Please correct the errors below."
 msgstr "Lütfən aşağıdakı səhvləri düzəldin."
@@ -398,9 +372,6 @@ msgstr "Saytda göstər"
 
 msgid "Filter"
 msgstr "Süzgəc"
-
-msgid "Clear all filters"
-msgstr "Bütün filterləri təmizlə"
 
 msgid "Remove from sorting"
 msgstr "Sıralamadan çıxar"
@@ -444,8 +415,8 @@ msgstr ""
 msgid "Objects"
 msgstr "Obyektlər"
 
-msgid "Yes, I’m sure"
-msgstr "Bəli, əminəm"
+msgid "Yes, I'm sure"
+msgstr "Hə, əminəm"
 
 msgid "No, take me back"
 msgstr "Xeyr, məni geri götür"
@@ -479,6 +450,9 @@ msgstr ""
 "Seçdiyiniz %(objects_name)s obyektini silməkdə əminsiniz? Aşağıdakı bütün "
 "obyektlər və ona bağlı digər obyektlər də silinəcək:"
 
+msgid "Change"
+msgstr "Dəyiş"
+
 msgid "Delete?"
 msgstr "Silək?"
 
@@ -488,6 +462,16 @@ msgstr " %(filter_title)s görə "
 
 msgid "Summary"
 msgstr "İcmal"
+
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr "%(name)s proqramındakı modellər"
+
+msgid "Add"
+msgstr "Əlavə et"
+
+msgid "You don't have permission to edit anything."
+msgstr "Üzrlər, amma sizin nəyisə dəyişməyə səlahiyyətiniz çatmır."
 
 msgid "Recent actions"
 msgstr "Son əməliyyatlar"
@@ -502,10 +486,12 @@ msgid "Unknown content"
 msgstr "Naməlum"
 
 msgid ""
-"Something’s wrong with your database installation. Make sure the appropriate "
+"Something's wrong with your database installation. Make sure the appropriate "
 "database tables have been created, and make sure the database is readable by "
 "the appropriate user."
 msgstr ""
+"Bazanın qurulması ilə nəsə problem var. Lazımi cədvəllərin bazada "
+"yaradıldığını və uyğun istifadəçinin bazadan oxuya bildiyini yoxlayın."
 
 #, python-format
 msgid ""
@@ -518,9 +504,6 @@ msgstr ""
 msgid "Forgotten your password or username?"
 msgstr "Parol və ya istifadəçi adını unutmusan?"
 
-msgid "Toggle navigation"
-msgstr ""
-
 msgid "Date/time"
 msgstr "Tarix/vaxt"
 
@@ -531,9 +514,11 @@ msgid "Action"
 msgstr "Əməliyyat"
 
 msgid ""
-"This object doesn’t have a change history. It probably wasn’t added via this "
+"This object doesn't have a change history. It probably wasn't added via this "
 "admin site."
 msgstr ""
+"Bu obyektin dəyişməsinə aid tarix mövcud deyil. Yəqin ki, o, bu admin saytı "
+"vasitəsilə yaradılmayıb."
 
 msgid "Show all"
 msgstr "Hamısını göstər"
@@ -541,8 +526,20 @@ msgstr "Hamısını göstər"
 msgid "Save"
 msgstr "Yadda saxla"
 
-msgid "Popup closing…"
-msgstr "Qəfil pəncərə qapatılır…"
+msgid "Popup closing..."
+msgstr "Qəfl pəncərə qapatılır..."
+
+#, python-format
+msgid "Change selected %(model)s"
+msgstr "Seçilmiş %(model)s dəyişdir"
+
+#, python-format
+msgid "Add another %(model)s"
+msgstr "Başqa %(model)s əlavə et"
+
+#, python-format
+msgid "Delete selected %(model)s"
+msgstr "Seçilmiş %(model)s sil"
 
 msgid "Search"
 msgstr "Axtar"
@@ -566,24 +563,6 @@ msgstr "Yadda saxla və yenisini əlavə et"
 msgid "Save and continue editing"
 msgstr "Yadda saxla və redaktəyə davam et"
 
-msgid "Save and view"
-msgstr "Saxla və gör"
-
-msgid "Close"
-msgstr "Qapat"
-
-#, python-format
-msgid "Change selected %(model)s"
-msgstr "Seçilmiş %(model)s dəyişdir"
-
-#, python-format
-msgid "Add another %(model)s"
-msgstr "Başqa %(model)s əlavə et"
-
-#, python-format
-msgid "Delete selected %(model)s"
-msgstr "Seçilmiş %(model)s sil"
-
 msgid "Thanks for spending some quality time with the Web site today."
 msgstr "Sayt ilə səmərəli vaxt keçirdiyiniz üçün təşəkkür."
 
@@ -597,9 +576,11 @@ msgid "Your password was changed."
 msgstr "Sizin parolunuz dəyişdi."
 
 msgid ""
-"Please enter your old password, for security’s sake, and then enter your new "
+"Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
 msgstr ""
+"Yoxlama üçün köhnə parolunuzu daxil edin. Sonra isə yeni parolu iki dəfə "
+"daxil edin ki, səhv etmədiyinizə əmin olaq."
 
 msgid "Change my password"
 msgstr "Mənim parolumu dəyiş"
@@ -632,14 +613,18 @@ msgstr ""
 "Parolu sıfırlamaq üçün yenə müraciət edin."
 
 msgid ""
-"We’ve emailed you instructions for setting your password, if an account "
+"We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
+"Əgər daxil etdiyiniz e-poçt ünvanıyla hesab mövcuddursa, parolu qurmağınız "
+"üçün sizə e-poçt göndərdik. Qısa zamanda alacaqsınız."
 
 msgid ""
-"If you don’t receive an email, please make sure you’ve entered the address "
+"If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
+"Əgər e-poçt gəlmədiysə lütfən, qeyd olduğunuz ünvanla istədiyinizə əmin olun "
+"və spam qutunuzu yoxlayın."
 
 #, python-format
 msgid ""
@@ -652,8 +637,8 @@ msgstr ""
 msgid "Please go to the following page and choose a new password:"
 msgstr "Növbəti səhifəyə keçid alın və yeni parolu seçin:"
 
-msgid "Your username, in case you’ve forgotten:"
-msgstr "İstifadəçi adınız, əgər unutmusunuzsa:"
+msgid "Your username, in case you've forgotten:"
+msgstr "Sizin istifadəçi adınız:"
 
 msgid "Thanks for using our site!"
 msgstr "Bizim saytdan istifadə etdiyiniz üçün təşəkkür edirik!"
@@ -663,9 +648,11 @@ msgid "The %(site_name)s team"
 msgstr "%(site_name)s komandası"
 
 msgid ""
-"Forgotten your password? Enter your email address below, and we’ll email "
+"Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 msgstr ""
+"Parolu unutmusunuz? Aşağıda e-poçt ünvanınızı təqdim edin, biz isə yeni "
+"parol seçmək təlimatlarını sizə göndərək."
 
 msgid "Email address:"
 msgstr "E-poçt:"
@@ -683,10 +670,6 @@ msgstr "%s seç"
 #, python-format
 msgid "Select %s to change"
 msgstr "%s dəyişmək üçün seç"
-
-#, python-format
-msgid "Select %s to view"
-msgstr "Görmək üçün %s seçin"
 
 msgid "Date:"
 msgstr "Tarix:"
