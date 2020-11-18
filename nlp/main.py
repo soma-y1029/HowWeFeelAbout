@@ -19,12 +19,11 @@ def run_sentiment_analyzer(query):
     sample_size_for_model = 5000
     size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
 
-    consumer_key = S3Connection(config(['COMSUMER_KEY']))
-    consumer_secret = S3Connection(config(['COMSUMER_SECRET']))
+    consumer_key = S3Connection(config(['CONSUMER_KEY']))
+    consumer_secret = S3Connection(config(['CONSUMER_SECRET']))
     access_token = S3Connection(config(['ACCESS_TOKEN']))
     access_token_secret = S3Connection(config(['ACCESS_TOKEN_SECRET']))
-
-    spacy_dir = S3Connection(config(['SPACY_DIR']))
+    spacy_dir = 'en'
 
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')

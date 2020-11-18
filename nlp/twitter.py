@@ -2,7 +2,7 @@ import time
 import tweepy
 
 
-class Tweets():
+class Tweets:
     """
     Tweets class that gain tweets with provided query form twitter.com
     """
