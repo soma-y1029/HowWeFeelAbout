@@ -32,4 +32,4 @@ def passKeyword(request):
     #Render Progress bar
     #result = 87
     
-    return HttpResponseRedirect('/main/')
+    return HttpResponseRedirect('/')
