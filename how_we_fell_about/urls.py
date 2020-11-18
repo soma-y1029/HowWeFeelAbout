@@ -19,7 +19,7 @@ from main.views import myView, passKeyword
 # from how_we_fell_about import
 
 urlpatterns = [
+    path('', myView),
     path('admin/', admin.site.urls),
-    path('main/', myView),
     path('passKeyword/', passKeyword),
 ]
