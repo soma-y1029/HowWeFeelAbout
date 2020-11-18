@@ -4,8 +4,8 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
 
-from .base import Template
-from .context import Context, _builtin_context_processors
+from .base import Context, Template
+from .context import _builtin_context_processors
 from .exceptions import TemplateDoesNotExist
 from .library import import_library
 
@@ -107,7 +107,8 @@ class Engine:
 
     def find_template_loader(self, loader):
         if isinstance(loader, (tuple, list)):
-            loader, *args = loader
+            args = list(loader[1:])
+            loader = loader[0]
         else:
             args = []
 
@@ -160,7 +161,7 @@ class Engine:
         if isinstance(context, Context):
             return t.render(context)
         else:
-            return t.render(Context(context, autoescape=self.autoescape))
+            return t.render(Context(context))
 
     def select_template(self, template_name_list):
         """

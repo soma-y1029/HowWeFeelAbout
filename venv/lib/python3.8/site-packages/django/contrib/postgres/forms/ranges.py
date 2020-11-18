@@ -2,30 +2,13 @@ from psycopg2.extras import DateRange, DateTimeTZRange, NumericRange
 
 from django import forms
 from django.core import exceptions
-from django.forms.widgets import HiddenInput, MultiWidget
+from django.forms.widgets import MultiWidget
 from django.utils.translation import gettext_lazy as _
 
 __all__ = [
-    'BaseRangeField', 'IntegerRangeField', 'DecimalRangeField',
-    'DateTimeRangeField', 'DateRangeField', 'HiddenRangeWidget', 'RangeWidget',
+    'BaseRangeField', 'IntegerRangeField', 'FloatRangeField',
+    'DateTimeRangeField', 'DateRangeField', 'RangeWidget',
 ]
-
-
-class RangeWidget(MultiWidget):
-    def __init__(self, base_widget, attrs=None):
-        widgets = (base_widget, base_widget)
-        super().__init__(widgets, attrs)
-
-    def decompress(self, value):
-        if value:
-            return (value.lower, value.upper)
-        return (None, None)
-
-
-class HiddenRangeWidget(RangeWidget):
-    """A widget that splits input into two <input type="hidden"> inputs."""
-    def __init__(self, attrs=None):
-        super().__init__(HiddenInput, attrs)
 
 
 class BaseRangeField(forms.MultiValueField):
@@ -33,7 +16,6 @@ class BaseRangeField(forms.MultiValueField):
         'invalid': _('Enter two valid values.'),
         'bound_ordering': _('The start of the range must not exceed the end of the range.'),
     }
-    hidden_widget = HiddenRangeWidget
 
     def __init__(self, **kwargs):
         if 'widget' not in kwargs:
@@ -84,9 +66,9 @@ class IntegerRangeField(BaseRangeField):
     range_type = NumericRange
 
 
-class DecimalRangeField(BaseRangeField):
+class FloatRangeField(BaseRangeField):
     default_error_messages = {'invalid': _('Enter two numbers.')}
-    base_field = forms.DecimalField
+    base_field = forms.FloatField
     range_type = NumericRange
 
 
@@ -100,3 +82,14 @@ class DateRangeField(BaseRangeField):
     default_error_messages = {'invalid': _('Enter two valid dates.')}
     base_field = forms.DateField
     range_type = DateRange
+
+
+class RangeWidget(MultiWidget):
+    def __init__(self, base_widget, attrs=None):
+        widgets = (base_widget, base_widget)
+        super().__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return (value.lower, value.upper)
+        return (None, None)

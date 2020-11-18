@@ -1,9 +1,7 @@
 # This file is distributed under the same license as the Django package.
 #
 # Translators:
-# Emil Joseph <emilutan@gmail.com>, 2019
 # Jannis Leidel <jannis@leidel.info>, 2011
-# MUHAMMED RAMEEZ <muhammedrameez2000@gmail.com>, 2019
 # Rag sagar <ragsagar@gmail.com>, 2016
 # Rajeesh Nair <rajeeshrnair@gmail.com>, 2012
 msgid ""
@@ -11,8 +9,8 @@ msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-19 16:49+0100\n"
-"PO-Revision-Date: 2019-03-10 07:17+0000\n"
-"Last-Translator: Emil Joseph <emilutan@gmail.com>\n"
+"PO-Revision-Date: 2017-09-19 16:40+0000\n"
+"Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
 "Language-Team: Malayalam (http://www.transifex.com/django/django/language/"
 "ml/)\n"
 "MIME-Version: 1.0\n"
@@ -22,10 +20,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Administrative Documentation"
-msgstr "കാര്യനിർവ്വാഹകർക്കായുള്ള ഡോക്യൂമെന്റേഷൻ "
+msgstr ""
 
 msgid "Home"
-msgstr "ഹോം "
+msgstr "പൂമുഖം"
 
 msgid "Documentation"
 msgstr "സഹായക്കുറിപ്പുകള്‍"
@@ -41,9 +39,6 @@ msgid ""
 "click the link and add it to your bookmarks. Now you can select the "
 "bookmarklet from any page in the site."
 msgstr ""
-"ബുക്ക്മാർക്കുകൾ ഇൻസ്റ്റാൾ ചെയ്യാൻ, നിങ്ങളുടെ ബുക്ക്മാർക്കുകൾ ടൂൾബാറിലേക്ക് ലിങ്ക് ഇഴയ്ക്കുക, "
-"അല്ലെങ്കിൽ ലിങ്കിൽ വലത് ക്ലിക്കുചെയ്ത് നിങ്ങളുടെ ബുക്ക്മാർക്കുകളിൽ ചേർക്കുക. ഇപ്പോൾ നിങ്ങൾക്ക് "
-"സൈറ്റിലെ ഏത് പേജിൽ നിന്നും ബുക്മാർക്കറ്റ് തിരഞ്ഞെടുക്കാം."
 
 msgid "Documentation for this page"
 msgstr "ഈ പേജിന്റെ സഹായക്കുറിപ്പുകള്‍"
@@ -57,7 +52,7 @@ msgid "Tags"
 msgstr "ടാഗുകള്‍"
 
 msgid "List of all the template tags and their functions."
-msgstr "എല്ലാ ടെംപ്ലേറ്റുകളും അവയുടെ ഫംഗ്ഷനുകളുടെ പട്ടിക"
+msgstr ""
 
 msgid "Filters"
 msgstr "ഫില്‍ട്ടറുകള്‍"
@@ -66,8 +61,6 @@ msgid ""
 "Filters are actions which can be applied to variables in a template to alter "
 "the output."
 msgstr ""
-"ഫിൽറ്ററുകൾ എന്നാൽ ഔട്പുട്ടിനു മാറ്റം വരുത്തുവാൻ  ടെംപ്ലേറ്റുകൾക്കു ഉള്ളില്ലേ വാരിയബിലിസിന് "
-"(variables) നൽകുന്ന ആക്ഷൻസ്സാണ് "
 
 msgid "Models"
 msgstr "മോഡലുകള്‍"
@@ -89,10 +82,9 @@ msgstr ""
 
 msgid "Tools for your browser to quickly access admin functionality."
 msgstr ""
-"അഡ്മിൻ  ഫങ്ക്ഷണാലിറ്റിയിലേക്കു  പെട്ടെന്നു പ്രവേശിക്കുവാൻ  നിങ്ങളുടെ ബ്രൗസെറിനുള്ള ടൂളുകൾ ."
 
 msgid "Please install docutils"
-msgstr "ദയവായി ഡോക്യൂട്ടിൽസ്‌  ഇൻസ്റ്റാൾ ചെയ്യുക."
+msgstr ""
 
 #, python-format
 msgid ""
@@ -110,34 +102,34 @@ msgid "Model: %(name)s"
 msgstr ""
 
 msgid "Fields"
-msgstr "ഫീൽഡുകൾ "
+msgstr ""
 
 msgid "Field"
-msgstr "ഫീൽഡ്."
+msgstr ""
 
 msgid "Type"
-msgstr "ടൈപ്പ് "
+msgstr ""
 
 msgid "Description"
-msgstr "വിവരണം"
+msgstr ""
 
 msgid "Methods with arguments"
-msgstr "മെതോടുകൾ ഉള്ള ആർഗുമെന്റ്സ് "
+msgstr ""
 
 msgid "Method"
-msgstr "രീതി"
+msgstr ""
 
 msgid "Arguments"
-msgstr "വാദങ്ങൾ"
+msgstr ""
 
 msgid "Back to Model documentation"
-msgstr "മോഡൽ ഡോക്യൂമെന്റന്റഷനിലേക്ക് തിരികെ പോവുക ."
+msgstr ""
 
 msgid "Model documentation"
-msgstr "മോഡൽ ഡോക്യൂമെന്റേഷൻ."
+msgstr ""
 
 msgid "Model groups"
-msgstr "മോഡൽ ഗ്രൂപ്സ്"
+msgstr ""
 
 msgid "Templates"
 msgstr "ടെമ്പ്‌ലേറ്റുകള്‍"
@@ -156,19 +148,19 @@ msgid "Search path for template \"%(name)s\":"
 msgstr ""
 
 msgid "(does not exist)"
-msgstr "(എക്സിസ്റ്  ചെയ്യുന്നില്ല )"
+msgstr ""
 
 msgid "Back to Documentation"
-msgstr "ഡോക്യൂമെന്റഷനിലേക്കു തിരികെ പോവുക ."
+msgstr ""
 
 msgid "Template filters"
-msgstr "ടെമ്പ്ലേറ്റ് ഫിൽറ്ററുകൾ "
+msgstr ""
 
 msgid "Template filter documentation"
-msgstr "ടെമ്പ്ലേറ്റ് ഫിൽറ്റർ ഡോക്യൂമെന്റേഷൻ "
+msgstr ""
 
 msgid "Built-in filters"
-msgstr "ബിൽട്ടിൻ  ഫിൽറ്ററുകൾ "
+msgstr ""
 
 #, python-format
 msgid ""
@@ -177,13 +169,13 @@ msgid ""
 msgstr ""
 
 msgid "Template tags"
-msgstr "ടെമ്പ്ലേറ്റ് റ്റാഗുകൾ "
+msgstr ""
 
 msgid "Template tag documentation"
-msgstr "ടെമ്പ്ലേറ്റ് ടാഗിന്റെ ഡോക്യൂമെന്റേഷൻ "
+msgstr ""
 
 msgid "Built-in tags"
-msgstr "ബിൽട്ടിൻ  റ്റാഗുകൾ "
+msgstr ""
 
 #, python-format
 msgid ""
@@ -196,7 +188,7 @@ msgid "View: %(name)s"
 msgstr ""
 
 msgid "Context:"
-msgstr "കോണ്ടെക്സ്റ് :"
+msgstr ""
 
 msgid "Templates:"
 msgstr "ടെമ്പ്‌ലേറ്റുകള്‍"
@@ -205,10 +197,10 @@ msgid "Back to View documentation"
 msgstr ""
 
 msgid "View documentation"
-msgstr "ഡോക്യൂമെന്റെഷൻ കാണുക "
+msgstr ""
 
 msgid "Jump to namespace"
-msgstr "നെയിംസ്പേസിലേക്ക് ചാടുക ."
+msgstr ""
 
 msgid "Empty namespace"
 msgstr ""

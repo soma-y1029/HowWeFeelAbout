@@ -1,5 +1,9 @@
+import time
+
 from nlp.sentiment_analysis import Model, Algorithm
 from nlp.twitter import Tweets
+from boto.s3.connection import S3Connection
+from decouple import config
 
 
 def run_sentiment_analyzer(query):
@@ -8,22 +12,26 @@ def run_sentiment_analyzer(query):
     :param query: query to be searched
     :return: dictionary of data
     """
-    # values to be adjusted
-    rebuild = True
-    sample_size_for_model = 100
-    size_of_actual_tweets = 10 # the tweets are only upto 7 past-days
+    start_time = time.time()
 
-    consumer_key = '' 
-    consumer_secret = '' 
-    access_token = '' 
-    access_token_secret = ''
-    spacy_dir = 'en'
+    # values to be adjusted
+    rebuild = False
+    sample_size_for_model = 5000
+    size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
+
+    consumer_key = S3Connection(config(['COMSUMER_KEY']))
+    consumer_secret = S3Connection(config(['COMSUMER_SECRET']))
+    access_token = S3Connection(config(['ACCESS_TOKEN']))
+    access_token_secret = S3Connection(config(['ACCESS_TOKEN_SECRET']))
+
+    spacy_dir = S3Connection(config(['SPACY_DIR']))
 
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')
 
     # create and run modules for text classification
-    algorithm = Algorithm()
+    algorithm = Algorithm(spacy_dir)
+
     classification_model = Model(algorithm, rebuild=rebuild, sample_size=sample_size_for_model)
     algorithm.model = classification_model
     classification_model.run_model()
@@ -32,6 +40,8 @@ def run_sentiment_analyzer(query):
     print(f'\nobtaining actual tweets from twitter.com')
     tweets = Tweets(query, size=size_of_actual_tweets)
     real_tweets = tweets.tweets_list
+    tweets.set_keys(consumer_key, consumer_secret, access_token, access_token_secret)
+    tweets.run()
 
     # process the obtained data from twitter
     print(f'processing actual tweets')
@@ -43,4 +53,6 @@ def run_sentiment_analyzer(query):
 
     # return the res_dict that contains information about the sentiment analysis and the result
     print(f'\n\nsample output: {res_dict=}')
+
+    print(f'\n\n {time.time()-start_time}')
     return res_dict
