@@ -7,7 +7,11 @@ from nlp.main import run_sentiment_analyzer
 
 #when the server gets the request, return http response hello world
 def myView(request):
-    first_item = mainItem.objects.all()[0]  #first data in the DB
+    if mainItem.objects.all():
+        first_item = mainItem.objects.all()[0]  #first data in the DB
+    else:
+        first_item = None
+        
     return render(request, 'index.html', 
         {'first_item': first_item})
     # return HttpResponse('hi')
