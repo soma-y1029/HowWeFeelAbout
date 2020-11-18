@@ -9,38 +9,16 @@ def run_sentiment_analyzer(query):
     :return: dictionary of data
     """
     # values to be adjusted
-<<<<<<< HEAD
     rebuild = True
     sample_size_for_model = 100
     size_of_actual_tweets = 10 # the tweets are only upto 7 past-days
 
-#     consumer_key = '' 
-#     consumer_secret = '' 
-#     access_token = '' 
-#     access_token_secret = ''
-=======
-<<<<<<< Updated upstream
-    rebuild = False
-    sample_size_for_model = 500
-    size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
-
-=======
-    rebuild = True
-    sample_size_for_model = 50
-    size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
-
->>>>>>> 
     consumer_key = '' 
     consumer_secret = '' 
     access_token = '' 
     access_token_secret = ''
-<<<<<<< HEAD
-=======
-
->>>>>>> 
     spacy_dir = 'en'
 
->>>>>>> Stashed changes
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')
 
