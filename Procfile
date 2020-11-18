@@ -1,1 +1,1 @@
-web: gunicorn HowWeFeelAbout.wsgi
+web: gunicorn howwefeelabout.wsgi --log-file-
