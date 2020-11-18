@@ -1,1 +1,1 @@
-web: gunicorn howwefeelabout.wsgi
+web: gunicorn HowWeFeelAbout.wsgi
