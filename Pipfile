@@ -11,6 +11,9 @@ gunicorn = "*"
 django-heroku = "*"
 python-decouple = "*"
 spacy = "*"
+nltk = "*"
+scikit-learn = "*"
+tweepy = "*"
 
 [requires]
 python_version = "3.8"
