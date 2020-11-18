@@ -8,7 +8,7 @@ class Tweets:
     """
     def __init__(self, text_query, size=100):
         """
-        Constructor
+        Constructor of Tweets
         :param text_query: query to be searched
         :param size: size of tweet to be obtained from twitter
         """

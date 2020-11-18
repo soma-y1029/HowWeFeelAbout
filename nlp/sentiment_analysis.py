@@ -19,7 +19,7 @@ class Model:
     """
     def __init__(self, algorithm, rebuild=False, sample_size=5000):
         """
-        Constructor
+        Constructor of Model
         """
         self.__text_classifier = None
         self.__algorithm = algorithm
