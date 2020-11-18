@@ -1,5 +1,5 @@
-import tweepy
 import time
+import tweepy
 
 
 class Tweets():
@@ -16,12 +16,7 @@ class Tweets():
         self.__count = size
         self.__api = None
         self.__tweets_list = []
-
-        # developer account keys
-        self.__consumer_key = ''
-        self.__consumer_secret = ''
-        self.__access_token = ''
-        self.__access_token_secret = ''
+        self.__run()
 
     @property
     def tweets_list(self):
@@ -31,7 +26,7 @@ class Tweets():
         """
         return self.__tweets_list
 
-    def run(self):
+    def __run(self):
         """
         Run two methods to obtain tweets
         :return: None
@@ -39,20 +34,20 @@ class Tweets():
         self.__set_api()
         self.__get_tweets()
 
-    def set_keys(self, consumer_key, consumer_secret, access_token, access_token_secret):
-        self.__consumer_key = consumer_key
-        self.__consumer_secret = consumer_secret
-        self.__access_token = access_token
-        self.__access_token_secret = access_token_secret
-
     def __set_api(self):
         """
         Set api with keys
         :return: None
         """
+        # developer account keys
+        consumer_key = ''
+        consumer_secret = ''
+        access_token = ''
+        access_token_secret = ''
+
         # authentication of twitter developer account
-        auth = tweepy.OAuthHandler(self.__consumer_key, self.__consumer_secret)
-        auth.set_access_token(self.__access_token, self.__access_token_secret)
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
         self.__api = tweepy.API(auth, wait_on_rate_limit=True)
 
     def __get_tweets(self):

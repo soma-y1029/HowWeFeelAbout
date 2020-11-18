@@ -12,6 +12,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import MultinomialNB
 
+# directory of spacy library
+SPACY_DIR = 'en'
+
 
 class Model:
     """
@@ -75,7 +78,6 @@ class Model:
         # Using the fitted vectorizer and transformer, tranform the test data
         docs_test_counts = self.algorithm.tweetVzer.transform(docs_test)
         docs_test_tfidf = self.algorithm.tweetTfmer.transform(docs_test_counts)
-
         self.__build_classifier(docs_train_tfidf, docs_test_tfidf, y_train, y_test)
 
     def __build_classifier(self, docs_train_tfidf, docs_test_tfidf, y_train, y_test):
@@ -131,6 +133,7 @@ class Model:
     def __get_labeled_tweets(self):
         """
         Get labeled tweets from nltk
+        :param file_name: name of file in string
         :return: cleaned list of lists that contain tokens for each tweets
         """
         pos_samples = twitter_samples.strings('positive_tweets.json')[:self.__sample_size]
@@ -144,12 +147,11 @@ class Algorithm:
     """
     Algorithm class that hodls algorithms to process sentiment analysis
     """
-
-    def __init__(self, spacy_dir):
+    def __init__(self):
         """
         Constructor
         """
-        self.__model_nlp = spacy.load(spacy_dir)
+        self.__model_nlp = spacy.load(SPACY_DIR)
         self.__model = None
         self.__tweetVzer = CountVectorizer(min_df=2, max_features=3000)
         self.__tweetTfmer = TfidfTransformer()
