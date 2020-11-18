@@ -8,7 +8,7 @@ from decouple import config
 
 def run_sentiment_analyzer(query):
     """
-    Driver method to run sentiment analyzer
+    Driver method of nlp to run sentiment analyzer
     :param query: query to be searched
     :return: dictionary of data
     """
