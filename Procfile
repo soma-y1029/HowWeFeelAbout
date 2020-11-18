@@ -1,1 +1,1 @@
-web: gunicorn HowWeFeelAbout.wsgi
+web: gunicorn how_we_fell_about.wsgi
