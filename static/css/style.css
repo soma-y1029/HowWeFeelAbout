@@ -26,6 +26,7 @@
 }
 
 /* header */
+
 .header {
   padding: 2rem 1.4rem;
   text-align: center;
@@ -37,7 +38,7 @@
   padding-bottom: 0;
   font-family: var(--font-heading-stack);
   letter-spacing: 1.5px;
-
+  font-size: 3rem;
 }
 
 .header__explanation {
@@ -49,7 +50,7 @@
 .keywords__container {
   text-align: center;
   padding: 2rem 1.4rem;
-  
+
 
 }
 
@@ -59,6 +60,7 @@
   font-family: var(--font-body-stack);
   text-align: center;
 }
+
 .keywords__button {
   padding: 1rem 2rem;
   font-size: 1.4rem;
@@ -97,4 +99,85 @@
 
 .result__angry {
   color: lightcoral;
+}
+
+.result__moderate {
+  color: orange;
+}
+
+.result__value {
+  font-family: var(--font-heading-stack);
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.5rem;
+  color: black;
+}
+
+.result__value--words {
+  font-family: var(--font-heading-stack);
+  margin: 0 auto;
+  text-align: center;
+  width: 70%;
+  font-size: 1.7rem;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.result__value--num {
+  width: 70%;
+  text-align: center;
+  margin: 0 auto;
+
+}
+
+.result__value--emoji {
+  font-size: 10rem;
+  margin: 24px;
+}
+
+.result__value--description {
+  font-size: 2.5rem;
+  /* color: green; */
+}
+
+.keyword-output {
+  font-weight: bold;
+  font-size: 2rem;
+  /* color: green; */
+}
+
+
+/* accordion related css*/
+
+.accordion {
+  font-family: Arial,
+    Helvetica,
+    sans-serif;
+  width: 620px;
+  margin: 4rem auto;
+}
+
+.accordion__heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-top: 1px solid #ddd;
+  letter-spacing: 1px;
+}
+
+.accordion__heading:hover {
+  cursor: pointer;
+}
+
+.accordion__details {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s all ease;
+  margin-left: 3rem;
+}
+
+.accordion__details p {
+  padding: 1.2rem 0;
+  line-height: 1.2rem;
+  font-size: 0.8rem;
 }

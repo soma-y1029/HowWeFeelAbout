@@ -10,8 +10,10 @@
   <meta name="author" content="Soma, Solbi">
   <!-- <link rel="icon" type="image/png" href=""> -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <script src="https://kit.fontawesome.com/4277093d13.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'font-web/css/all.css' %}">
   <script src="{% static 'js/app.js' %}" defer></script>
+  <!-- <script src="https://kit.fontawesome.com/4277093d13.js" crossorigin="anonymous"></script> -->
+
 </head>
 
 <body>
@@ -41,24 +43,117 @@
     <div class="result">
       <div class="result__container">
         <div class="progress">
-          <div class="progress__inner">
+          <div class="progress__inner" style="width: {{first_item.result}}%">
           </div>
         </div>
         <div class="result__emoji">
           <i class="far fa-angry result__angry"></i>
           <i class="far fa-smile result__happy"></i>
         </div>
-        <div class="result__value">
+        <!-- <div class="result__value"> -->
           <!-- <h1 id="result">Test result: {{first_item.content}}</h1> -->
-          <h1 id="content">Test result: {{first_item.content}}</h1>
+          <!-- <h1 id="content">Test result: {{first_item.content}}</h1>
           <h1 id="result">Test result: {{first_item.result}}</h1>
           <input type="hidden" id="myVar" name="variable" value="{{result}}">
+        </div> -->
+        {% if first_item.result >= 67 %}
+        <div class="result__value">
+          <!-- <h1 id="result">Test result: {{first_item.content}}</h1> -->
+          <!-- <h1 id="content">Test result: {{first_item.content}}</h1> -->
+          <div class="result__value--words">How do we feel about <span class="keyword-output result__happy">{{first_item.content}}</span>?</div>
+          <div class="result__value--emoji"><i class="far fa-smile result__happy"></i></div>
+          <div class="result__value--description result__happy">WE FEEL GOOD</div>
+          <input type="hidden" id="myVar" name="variable" value="{{result}}">
+          <div class="result__value--num">Positiveness: <span class="keyword-output result__happy">{{first_item.result}}</span>/100</div>
+        </div>
+        {% elif first_item.result >= 33 and first_item.result <= 66 %}
+        <div class="result__value">
+          <!-- <h1 id="result">Test result: {{first_item.content}}</h1> -->
+          <!-- <h1 id="content">Test result: {{first_item.content}}</h1> -->
+          <div class="result__value--words">How do we feel about <span class="keyword-output result__moderate">{{first_item.content}}</span>?</div>
+          <div class="result__value--emoji"><i class="far fa-meh result__moderate"></i></div>
+          <div class="result__value--description result__moderate">WE FEEL MODERATE</div>
+          <input type="hidden" id="myVar" name="variable" value="{{result}}">
+          <div class="result__value--num">Positiveness: <span class="keyword-output result__moderate">{{first_item.result}}</span>/100</div>
+        </div>
+        {% else %}
+        <div class="result__value">
+          <!-- <h1 id="result">Test result: {{first_item.content}}</h1> -->
+          <!-- <h1 id="content">Test result: {{first_item.content}}</h1> -->
+          <div class="result__value--words">How do we feel about <span class="keyword-output result__angry">{{first_item.content}}</span>?</div>
+          <div class="result__value--emoji"><i class="far fa-angry result__angry"></i></div>
+          <div class="result__value--description result__angry">WE FEEL BAD</div>
+          <input type="hidden" id="myVar" name="variable" value="{{result}}">
+          <div class="result__value--num">Positiveness: <span class="keyword-output result__angry">{{first_item.result}}</span>/100</div>
+        </div>
+        {% endif %}
+
+
+ 
+
+
+        <div class="accordion">
+        <div class="accordion__item">
+          <div class="accordion__heading">
+            <p class="accordion__title">Postive tweets</p>
+            <span class="accordion__icon">+</span>
+          </div>
+          <div class="accordion__details">
+            <p>list of tweets</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__heading">
+            <p class="accordion__title">Negative tweets</p>
+            <span class="accordion__icon">+</span>
+          </div>
+          <div class="accordion__details">
+            <p>list of tweets</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__heading">
+            <p class="accordion__title">What's a sentimental analyzer</p>
+            <span class="accordion__icon">+</span>
+          </div>
+          <div class="accordion__details">
+            <p>HOW WE FEEL ABOUT is a web-based app that analyzes Twitter user's sentiment based on the provided query. The text classification model is built with labeled 10K sample tweets provided by NLTK. It receives a keyword from a user and classifies tweets based on the model. The tweets to be classified are obtained from twitter.com based on the keyword. This sentiment analyzer is to understand our emotions on a certain topic. </p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <div class="accordion__heading">
+            <p class="accordion__title">Who created this app?</p>
+            <span class="accordion__icon">+</span>
+          </div>
+          <div class="accordion__details">
+            <p>Soma, Solbi</p>
+          </div>
+        </div>
+
         </div>
       </div>
     </div>
   </div>
-
+  
 </body>
+
+<script>
+  const progressBarEl = document.querySelector('.progress__inner');
+  const resultEl = document.querySelector('#result');
+  const inputEl = document.querySelector('.keywords__text');
+
+  const lanuch = (start, end) => {
+    let statusBar = setInterval(() => {
+      if(start === end) {
+        clearInterval(statusBar);
+      } else {
+        start++;
+        progressBarEl.style.width = `${start}%`;
+      }
+    }, 20);
+  }
+  lanuch(0, first_item.result);
+</script>
 
 </html>
 
