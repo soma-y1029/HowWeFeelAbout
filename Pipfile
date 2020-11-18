@@ -14,6 +14,7 @@ spacy = "*"
 nltk = "*"
 scikit-learn = "*"
 tweepy = "*"
+boto = "*"
 
 [requires]
 python_version = "3.8"
