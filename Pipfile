@@ -10,6 +10,7 @@ django = "==2.1"
 gunicorn = "*"
 django-heroku = "*"
 python-decouple = "*"
+spacy = "*"
 
 [requires]
 python_version = "3.8"
