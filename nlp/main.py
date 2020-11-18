@@ -23,8 +23,7 @@ def run_sentiment_analyzer(query):
     consumer_secret = S3Connection(config(['COMSUMER_SECRET']))
     access_token = S3Connection(config(['ACCESS_TOKEN']))
     access_token_secret = S3Connection(config(['ACCESS_TOKEN_SECRET']))
-
-    spacy_dir = S3Connection(config(['SPACY_DIR']))
+    spacy_dir = 'en'
 
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')
