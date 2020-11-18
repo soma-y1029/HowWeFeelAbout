@@ -1,31 +1,27 @@
-//cache elements
-const progressBarEl = document.querySelector('.progress__inner');
-const resultEl = document.querySelector('#result');
-const inputEl = document.querySelector('.keywords__text');
+'use strict';
 
 
-const lanuch = (start, end) => {
-  let statusBar = setInterval(() => {
-    if(start === end) {
-      clearInterval(statusBar);
-    } else {
-      start++;
-      progressBarEl.style.width = `${start}%`;
-    }
-  }, 20);
+const accordionItemsEl = document.querySelectorAll(".accordion__item");
+const accordionItemsElc = document.getElementsByClassName("accordion__item");
+
+function accordion() {
+  console.log(accordionItemsEl);
+  for (let item of accordionItemsElc) {
+    let accHeader = item.firstElementChild;
+    accHeader.addEventListener('click', ()=> {
+      // this refers to accHeader, same thing
+      let accDetails = accHeader.nextElementSibling;
+      if (accDetails.style.maxHeight) {
+        accDetails.style.maxHeight = null;
+        accHeader.lastElementChild.innerHTML = "+";
+      } else {
+        accDetails.style.maxHeight = accDetails.scrollHeight + "px";  //scrollHeight
+        accHeader.lastElementChild.innerHTML = "-";
+      }
+    });
+  }
+
 }
 
-const status = 55;
 
-// inputEl.value 
-// resultEl.value = 3;
-
-// setInterval(() => {
-//   if(inputEl.value) {
-//     console.log(inputEl.value);
-//   }
-// }, 50);
-
-// console.log(document.getElementById("myVar").value);
-console.log('hi');
-lanuch(0, status);
+accordion();

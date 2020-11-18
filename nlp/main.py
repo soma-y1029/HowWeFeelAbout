@@ -13,16 +13,19 @@ def run_sentiment_analyzer(query):
     start_time = time.time()
 
     # values to be adjusted
-    rebuild = False
-    sample_size_for_model = 5000
-    size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
+    rebuild = True
+    sample_size_for_model = 100
+    size_of_actual_tweets = 10 # the tweets are only upto 7 past-days
 
-    consumer_key = ''
-    consumer_secret = ''
-    access_token = ''
-    access_token_secret = ''
-
-    spacy_dir = ''
+#     consumer_key = '' 
+#     consumer_secret = '' 
+#     access_token = '' 
+#     access_token_secret = ''
+    consumer_key = 'QHDBbSZt7YlCfl7JPWsg5NSih' 
+    consumer_secret = 'qNTgb8GqKh1kXXTkosQTEd9aPdhxVqilLzAR6q0Je0xJdlzUmX' 
+    access_token = '1306672127114842113-jAwRNJA1OxgHFfk4c7B8AqLYNox7oh' 
+    access_token_secret = 'EdJXVxdVuJhrCIuoyLKedMGHenoVibfx9ckf6fk1BJXhO'
+    spacy_dir = 'en'
 
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')
