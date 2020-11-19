@@ -17,7 +17,7 @@ def run_sentiment_analyzer(query):
     # values to be adjusted
     rebuild = False
     sample_size_for_model = 5000
-    size_of_actual_tweets = 200 # the tweets are only upto 7 past-days
+    size_of_actual_tweets = 200  # the tweets are only upto 7 past-days
 
     consumer_key = S3Connection(config(['CONSUMER_KEY']))
     consumer_secret = S3Connection(config(['CONSUMER_SECRET']))

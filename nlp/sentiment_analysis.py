@@ -203,7 +203,7 @@ class Algorithm:
 
         # create dictionary to be returned with information
         res_dict = dict()
-        res_dict['Positiveness'] = sum(pred)/len(pred)*100
+        res_dict['Positiveness'] = int(sum(pred)/len(pred)*100)
         res_dict['Positive_tweets'] = pos_tweets[:]
         res_dict['Negative_tweets'] = neg_tweets[:]
         res_dict['Num_actual_tweets'] = len(processed_tweets)

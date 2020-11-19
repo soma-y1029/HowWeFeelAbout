@@ -8,37 +8,32 @@ from nlp.main import run_sentiment_analyzer
 
 
 # when the server gets the request, return http response hello world
-def myView(request):
-    if mainItem.objects.all():
-        first_item = mainItem.objects.all()[0]  # first data in the DB
-    else:
-        first_item = None
-
-    return render(request, 'index.html',
-                  {'first_item': first_item})
-    # return HttpResponse('hi')
+def home(request):
+    return render(request, 'index.html', {})
 
 
 # when there is a keyword passed in the form
-def passKeyword(request):
+def show_sentiment(request):
     # Update DB
     all_items = mainItem.objects.all()
-    if all_items:
-        first_item = all_items[0]  # first data in the DB]
-        keyword = request.POST['keyword']  # this is the input keyword passed from templates
+    first_item = all_items[0]  # first data in the DB]
+    print(f'{first_item=} {first_item.result=} {first_item.content=}')
 
-        # run a method that gets us the sentimental result(0-100)
-        res_dict = run_sentiment_analyzer(keyword)
-        result_percent = res_dict['Positiveness']  # add your result here
-        first_item.result = result_percent
-        first_item.content = keyword
-        # first_item.positive_tweets = res_dict['Positive_tweets']
-        # first_item.negative_tweets = res_dict['Negative_tweets']
+    keyword = request.POST['keyword']  # this is the input keyword passed from templates
+    print(f'{request.POST["keyword"]=}')
 
-        # new_item = mainItem(content = keyword)
-        first_item.save()
+    # run a method that gets us the sentimental result(0-100)
+    res_dict = run_sentiment_analyzer(keyword)
+    result_percent = res_dict['Positiveness']  # add your result here
+    first_item.result = result_percent
+    first_item.content = keyword
+    # first_item.positive_tweets = res_dict['Positive_tweets']
+    # first_item.negative_tweets = res_dict['Negative_tweets']
 
-        # Render Progress bar
-        # result = 87
+    # new_item = mainItem(content = keyword)
+    first_item.save()
 
-    return HttpResponseRedirect('/')
+    # Render Progress bar
+    # result = 87
+    return render(request, 'index.html', {'first_item': first_item})
+    # return HttpResponseRedirect('/')
