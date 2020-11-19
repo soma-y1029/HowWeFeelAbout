@@ -1,9 +1,7 @@
 import time
-import os
 
 from nlp.sentiment_analysis import Model, Algorithm
 from nlp.twitter import Tweets
-from boto.s3.connection import S3Connection
 from decouple import config
 
 
