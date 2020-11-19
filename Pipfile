@@ -15,6 +15,7 @@ nltk = "*"
 scikit-learn = "*"
 tweepy = "*"
 boto = "*"
+en-core-web-sm = "*"
 
 [requires]
 python_version = "3.8"

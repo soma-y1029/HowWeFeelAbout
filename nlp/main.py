@@ -24,7 +24,7 @@ def run_sentiment_analyzer(query):
     consumer_secret = config('CONSUMER_SECRET')
     access_token = config('ACCESS_TOKEN')
     access_token_secret = config('ACCESS_TOKEN_SECRET')
-    spacy_dir = 'en'
+    spacy_dir = 'en_core_web_sm'
 
     print(f'running sentiment analyzer with:\n'
           f'\t{rebuild=}, {sample_size_for_model=}, {size_of_actual_tweets=}')
