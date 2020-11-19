@@ -21,5 +21,5 @@ from main.views import home, show_sentiment
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
-    path('passKeyword/', show_sentiment),
+    path('sentiment/', show_sentiment),
 ]

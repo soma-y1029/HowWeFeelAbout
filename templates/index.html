@@ -32,7 +32,7 @@
     <div class="keywords">
       <div class="keywords__container">
         <!-- <span class="keywords__ask">Enter a keyword</span> -->
-      <form action="/passKeyword/" method="post" class="keywords__form">{% csrf_token %}
+      <form action="/sentiment/" method="post" class="keywords__form">{% csrf_token %}
         <input type="text" name="keyword" placeholder="enter your feeling" class="keywords__text">
         <input type="submit" value="Result" class="keywords__button">
       </form>
