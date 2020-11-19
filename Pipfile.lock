@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "723c46af892f711936c86cae046679b5bba2c044d102dcd0b6045e886b048166"
+            "sha256": "08e2e366f480b94c1b2adddbe6dace97858f2fead02162229f894ede47cb14de"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -115,6 +115,13 @@
             ],
             "index": "pypi",
             "version": "==0.3.1"
+        },
+        "en-core-web-sm": {
+            "file": "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz",
+            "hashes": [
+                "sha256:06c80936324012d1223291d2af41a5229e746dc2dee8fe31a532666ee3d18aaa"
+            ],
+            "version": "==2.3.1"
         },
         "gunicorn": {
             "hashes": [
