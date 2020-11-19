@@ -24,7 +24,6 @@ def run_sentiment_analyzer(query):
     consumer_secret = config('CONSUMER_SECRET')
     access_token = config('ACCESS_TOKEN')
     access_token_secret = config('ACCESS_TOKEN_SECRET')
-
     spacy_dir = 'en'
 
     print(f'running sentiment analyzer with:\n'
