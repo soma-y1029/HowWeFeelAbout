@@ -15,12 +15,15 @@ def home(request):
 # when there is a keyword passed in the form
 def show_sentiment(request):
     # Update DB
-    all_items = mainItem.objects.all()
-    first_item = all_items[0]  # first data in the DB]
-    print(f'{first_item=} {first_item.result=} {first_item.content=}')
+    # all_items = mainItem.objects.all()
+    # first_item = all_items[0]  # first data in the DB]
+    # print(type(first_item))
+    # print(f'{first_item=} {first_item.result=} {first_item.content=}')
 
     keyword = request.POST['keyword']  # this is the input keyword passed from templates
     print(f'{request.POST["keyword"]=}')
+
+    first_item = mainItem()
 
     # run a method that gets us the sentimental result(0-100)
     res_dict = run_sentiment_analyzer(keyword)
@@ -32,6 +35,9 @@ def show_sentiment(request):
 
     # new_item = mainItem(content = keyword)
     first_item.save()
+
+    print(type(first_item))
+    print(f'{first_item=} {first_item.result=} {first_item.content=}')
 
     # Render Progress bar
     # result = 87
