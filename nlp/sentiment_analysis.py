@@ -1,6 +1,7 @@
 import pickle
 import re
 import spacy
+import en_core_web_sm
 import string
 
 # twitter samples form nltk
@@ -149,7 +150,7 @@ class Algorithm:
         """
         Constructor
         """
-        self.__model_nlp = spacy.load(spacy_dir)
+        self.__model_nlp = en_core_web_sm#spacy.load(spacy_dir)
         self.__model = None
         self.__tweetVzer = CountVectorizer(min_df=2, max_features=3000)
         self.__tweetTfmer = TfidfTransformer()
