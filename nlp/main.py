@@ -14,9 +14,9 @@ def run_sentiment_analyzer(query):
     start_time = time.time()
 
     # values to be adjusted
-    rebuild = False
-    sample_size_for_model = 5000
-    size_of_actual_tweets = 200  # the tweets are only upto 7 past-days
+    rebuild = config('rebuild') in ('True', )
+    sample_size_for_model = int(config('sample_size_for_model'))
+    size_of_actual_tweets = int(config('size_of_actual_tweets'))  # the tweets are only upto 7 past-days
 
     consumer_key = config('CONSUMER_KEY')
     consumer_secret = config('CONSUMER_SECRET')
