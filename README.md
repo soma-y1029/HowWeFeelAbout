@@ -4,3 +4,15 @@ HOW WE FEEL ABOUT is a web based app that analyzes twitter user's sentiment base
 
 Analyze sentiment of most recent 200 tweets or upto 7 past-days tweets with given query.
 
+![](https://i.imgur.com/4rlPr4w.png)
+
+
+## Examples with cases
+### If we enter emotional words, it should return pretty much as the word mean.
+
+Example of 'good'.
+![](https://i.imgur.com/nn8eEU8.png)
+
+Example of 'bad'
+![](https://i.imgur.com/epSMpvo.png)
+
