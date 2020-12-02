@@ -5,4 +5,5 @@ from django.db import models
 class mainItem(models.Model):
     content = models.CharField(max_length=50)
     result = models.IntegerField(max_length=3)
-
+    positive_tweets = models.CharField(max_length=300)
+    negative_tweets = models.CharField(max_length=300)

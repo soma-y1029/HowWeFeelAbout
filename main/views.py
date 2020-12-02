@@ -30,8 +30,8 @@ def show_sentiment(request):
     result_percent = res_dict['Positiveness']  # add your result here
     first_item.result = result_percent
     first_item.content = keyword
-    # first_item.positive_tweets = res_dict['Positive_tweets']
-    # first_item.negative_tweets = res_dict['Negative_tweets']
+    first_item.positive_tweets = res_dict['Positive_tweets']
+    first_item.negative_tweets = res_dict['Negative_tweets']
 
     # new_item = mainItem(content = keyword)
     first_item.save()
